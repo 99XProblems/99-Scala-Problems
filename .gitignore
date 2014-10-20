@@ -1,0 +1,8 @@
+*~
+*.tgz
+.*.sw*
+.DS_Store
+# Scala
+*.jar
+*.scalac
+target/
