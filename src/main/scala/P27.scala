@@ -1,4 +1,4 @@
-package org.p99.ninetynineprobs
+package org.p99.scala
 
 object P27 {
 

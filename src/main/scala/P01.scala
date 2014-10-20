@@ -1,9 +1,7 @@
-package org.p99.ninetynineprobs
+package org.p99.scala
 
 object P01 {
 
-  /**
-   * Find the last element of a list
-   **/
-  def last[T](ls : List[T]) : T = Nil // TODO
+  // TODO
+
 }
