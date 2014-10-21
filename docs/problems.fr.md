@@ -46,6 +46,44 @@ d’informations.
 [scalatest]: http://www.scalatest.org/user_guide/writing_your_first_test
 [scalatestdocs]: http://www.scalatest.org/user_guide/using_assertions
 
+Par exemple, pour un problème P00 demandant d’écrire une fonction `id` qui
+retourne son seul argument, le fichier `P00.scala` ressemblera à ça :
+
+```scala
+package org.p99.scala
+
+object P00 {
+
+  def id[T](something : T) = something
+
+}
+```
+
+Le fichier `P00Spec.scala` pourra ressembler à ça :
+
+```scala
+package org.p99.scala
+
+import org.scalatest._
+
+class P01Spec extends UnitSpec {
+
+    "id" should "return its argument" in {
+        assert(P00.id(42) == 42)
+        assert(P00.id(-5) == -5)
+    }
+
+    // test inutile juste pour la démo
+    it should "also return its argument" in {
+        assert(P00.id(List()) == List())
+    }
+
+    it should "do something else" in {
+        // ...
+    }
+}
+```
+
 ## Testez
 
 Lancez `sbt` dans le répertoire racine du projet :

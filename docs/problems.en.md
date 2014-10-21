@@ -42,6 +42,45 @@ Read [ScalaTest’s docs][scalatestdocs] for more info.
 [scalatest]: http://www.scalatest.org/user_guide/writing_your_first_test
 [scalatestdocs]: http://www.scalatest.org/user_guide/using_assertions
 
+For example, given a problem P00 asking us to write a function `id` which
+returns its argument, the `P00.scala` file will look like this:
+
+```scala
+package org.p99.scala
+
+object P00 {
+
+  def id[T](something : T) = something
+
+}
+```
+
+The `P00Spec.scala` file might look like this:
+
+```scala
+package org.p99.scala
+
+import org.scalatest._
+
+class P01Spec extends UnitSpec {
+
+    "id" should "return its argument" in {
+        assert(P00.id(42) == 42)
+        assert(P00.id(-5) == -5)
+    }
+
+    // dummy test to show how to write them
+    it should "also return its argument" in {
+        assert(P00.id(List()) == List())
+    }
+
+    it should "do something else" in {
+        // ...
+    }
+}
+```
+
+
 ## Test
 
 Start `sbt` in the project directory:
