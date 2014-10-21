@@ -806,348 +806,615 @@ Using `atLevel` it is easy to construct a method levelOrder which creates the
 level-order sequence of the nodes. However, there are more efficient ways to do
 that.
 
-<!-- TODO
+### P64 (medium) Construct a complete binary tree.
 
-P63 (medium) Construct a complete binary tree.
-A complete binary tree with height H is defined as follows: The levels 1,2,3,...,H-1 contain the maximum number of nodes (i.e 2(i-1) at the level i, note that we start counting the levels from 1 at the root). In level H, which may contain less than the maximum possible number of nodes, all the nodes are "left-adjusted". This means that in a levelorder tree traversal all internal nodes come first, the leaves come second, and empty successors (the Ends which are not really nodes!) come last.
-Particularly, complete binary trees are used as data structures (or addressing schemes) for heaps.
+A complete binary tree with height H is defined as follows: The levels
+1,2,3,…,H-1 contain the maximum number of nodes (i.e 2<sup>(i-1)</sup> at the
+level i, note that we start counting the levels from 1 at the root). In level
+H, which may contain less than the maximum possible number of nodes, all the
+nodes are "left-adjusted". This means that in a levelorder tree traversal all
+internal nodes come first, the leaves come second, and empty successors (the
+`End`s which are not really nodes!) come last. Particularly, complete binary
+trees are used as data structures (or addressing schemes) for heaps.
 
-We can assign an address number to each node in a complete binary tree by enumerating the nodes in levelorder, starting at the root with number 1. In doing so, we realize that for every node X with address A the following property holds: The address of X's left and right successors are 2*A and 2*A+1, respectively, supposed the successors do exist. This fact can be used to elegantly construct a complete binary tree structure. Write a method completeBinaryTree that takes as parameters the number of nodes and the value to put in each node.
+We can assign an address number to each node in a complete binary tree by
+enumerating the nodes in levelorder, starting at the root with number 1. In
+doing so, we realize that for every node X with address A the following
+property holds: The address of X's left and right successors are 2\*A and
+2\*A+1, respectively, supposed the successors do exist. This fact can be used
+to elegantly construct a complete binary tree structure. Write a method
+`completeBinaryTree` that takes as parameters the number of nodes and the value
+to put in each node.
+
+Example:
 
     scala> Tree.completeBinaryTree(6, "x")
     res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
-P64 (medium) Layout a binary tree (1).
-As a preparation for drawing a tree, a layout algorithm is required to determine the position of each node in a rectangular grid. Several layout methods are conceivable, one of them is shown in the illustration on the right.
-In this layout strategy, the position of a node v is obtained by the following two rules:
 
-x(v) is equal to the position of the node v in the inorder sequence
-y(v) is equal to the depth of the node v in the tree
-In order to store the position of the nodes, we add a new class with the additional information.
+### P65 (medium)
 
-case class PositionedNode[+T](override val value: T, override val left: Tree[T], override val right: Tree[T], x: Int, y: Int) extends Node[T](value, left, right) {
-  override def toString = "T[" + x.toString + "," + y.toString + "](" + value.toString + " " + left.toString + " " + right.toString + ")"
-}
-Write a method layoutBinaryTree that turns a tree of normal Nodes into a tree of PositionedNodes.
+As a preparation for drawing a tree, a layout algorithm is required to
+determine the position of each node in a rectangular grid. Several layout
+methods are conceivable, one of them is shown in the illustration below. In
+this layout strategy, the position of a node v is obtained by the following two
+rules:
 
-scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree
-res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
-The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','h','g','e','u','p','s','q')). Use it to check your code.
+* x(v) is equal to the position of the node v in the inorder sequence
+* y(v) is equal to the depth of the node v in the tree
 
-P65 (medium) Layout a binary tree (2).
-An alternative layout method is depicted in the illustration opposite. Find out the rules and write the corresponding method. Hint: On a given level, the horizontal distance between neighboring nodes is constant.
-Use the same conventions as in problem P64.
+![](imgs/p65.png)
+
+In order to store the position of the nodes, we add a new class with the
+additional information.
+
+    case class PositionedNode[+T](override val value: T,
+        override val left: Tree[T], override val right: Tree[T],
+        x: Int, y: Int) extends Node[T](value, left, right) {
+      override def toString =
+        "T[" + x.toString + "," + y.toString + "]" +
+            "(" + value.toString + " " + left.toString + " " + right.toString + ")"
+    }
+
+Write a method `layoutBinaryTree` that turns a tree of normal `Node`s into a
+tree of `PositionedNode`s.
+
+    scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree
+    res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
+
+The pictured tree may be constructed with:
+
+    Tree.fromList(List('n','k','m','c','a','h','g','e','u','p','s','q'))
+
+Use it to check your code.
+
+### P66 (medium)
+
+An alternative layout method is depicted in the illustration below. Find out
+the rules and write the corresponding method. Hint: On a given level, the
+horizontal distance between neighboring nodes is constant.
+
+Use the same conventions as in problem P65.
+
+Example:
 
     scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
     res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
-The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')). Use it to check your code.
 
-P66 (hard) Layout a binary tree (3).
-Yet another layout strategy is shown in the illustration opposite. The method yields a very compact layout while maintaining a certain symmetry in every node. Find out the rules and write the corresponding method. Hint: Consider the horizontal distance between a node and its successor nodes. How tight can you pack together two subtrees to construct the combined binary tree?
-Use the same conventions as in problem P64 and P65. Note: This is a difficult problem. Don't give up too early!
+The pictured tree may be constructed with:
 
-scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3
-res0: PositionedNode[Char] = T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .))
+    Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q'))
+
+Use it to check your code.
+
+![](imgs/p66.png)
+
+### P67 (hard)
+
+Yet another layout strategy is shown in the illustration below. The method
+yields a very compact layout while maintaining a certain symmetry in every
+node. Find out the rules and write the corresponding method. Hint: Consider the
+horizontal distance between a node and its successor nodes. How tight can you
+pack together two subtrees to construct the combined binary tree?
+
+Use the same conventions as in problem P65 and P66. Note: This is a difficult
+problem. Don't give up too early!
+
+Example:
+
+    scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3
+    res0: PositionedNode[Char] = T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .))
+
+![](imgs/p67.png)
+
 Which layout do you like most?
 
-P67 (medium) A string representation of binary trees.
-Somebody represents binary trees as strings of the following type (see example opposite):
-a(b(d,e),c(,f(g,)))
-Write a method which generates this string representation, if the tree is given as usual (in Nodes and Ends). Use that method for the Tree class's and subclass's toString methods. Then write a method (on the Tree object) which does this inverse; i.e. given the string representation, construct the tree in the usual form.
+### P68 (medium)
 
-For simplicity, suppose the information in the nodes is a single letter and there are no spaces in the string.
+Somebody represents binary trees as strings of the following type (see example
+below):
 
-scala> Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString
-res0: String = a(b(d,e),c(,f(g,)))
+    a(b(d,e),c(,f(g,)))
 
-scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
-res1: Node[Char] = a(b(d,e),c(,f(g,)))
-P68 (medium) Preorder and inorder sequences of binary trees.
-We consider binary trees with nodes that are identified by single lower-case letters, as in the example of problem P67.
-a) Write methods preorder and inorder that construct the preorder and inorder sequence of a given binary tree, respectively. The results should be lists, e.g. List('a','b','d','e','c','f','g') for the preorder sequence of the example in problem P67.
+![](imgs/p68.png)
+
+Write a method which generates this string representation, if the tree is given
+as usual (in `Node`s and `End`s). Use that method for the `Tree` class's and
+subclass's `toString` methods. Then write a method (on the `Tree` object) which
+does this inverse; i.e. given the string representation, construct the tree in
+the usual form.
+
+For simplicity, suppose the information in the nodes is a single letter and
+there are no spaces in the string.
+
+Example:
+
+    scala> Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString
+    res0: String = a(b(d,e),c(,f(g,)))
+
+    scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
+    res1: Node[Char] = a(b(d,e),c(,f(g,)))
+
+### P69 (medium)
+
+We consider binary trees with nodes that are identified by single lower-case
+letters, as in the example of problem P68.
+
+Write methods `preorder` and `inorder` that construct the preorder and inorder
+sequence of a given binary tree, respectively. The results should be lists,
+e.g. `List('a','b','d','e','c','f','g')` for the preorder sequence of the
+example in problem P68.
+
+Example:
 
     scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder
     res0: List[Char] = List(a, b, d, e, c, f, g)
 
     scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
     res1: List[Char] = List(d, b, e, a, c, g, f)
-b) If both the preorder sequence and the inorder sequence of the nodes of a binary tree are given, then the tree is determined unambiguously. Write a method preInTree that does the job.
 
-scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
-res2: Node[Char] = a(b(d,e),c(,f(g,)))
-What happens if the same character appears in more than one node? Try, for instance, Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a')).
+### P70 (medium)
 
-P69 (medium) Dotstring representation of binary trees.
-We consider again binary trees with nodes that are identified by single lower-case letters, as in the example of problem P67. Such a tree can be represented by the preorder sequence of its nodes in which dots (.) are inserted where an empty subtree (End) is encountered during the tree traversal. For example, the tree shown in problem P67 is represented as "abd..e..c.fg...". First, try to establish a syntax (BNF or syntax diagrams) and then write two methods, toDotstring and fromDotstring, which do the conversion in both directions.
-scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring
-res0: String = abd..e..c.fg...
+This is a follow-up to P69.
+
+If both the preorder sequence and the inorder sequence of the nodes of a binary
+tree are given, then the tree is determined unambiguously. Write a method
+`preInTree` that does the job.
+
+Example:
+
+    scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
+    res2: Node[Char] = a(b(d,e),c(,f(g,)))
+
+What happens if the same character appears in more than one node? Try, for
+instance, `Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a'))`.
+
+### P71 (medium)
+
+We consider again binary trees with nodes that are identified by single
+lower-case letters, as in the example of problem P68. Such a tree can be
+represented by the preorder sequence of its nodes in which dots (`.`) are
+inserted where an empty subtree (`End`) is encountered during the tree
+traversal. For example, the tree shown in problem P68 is represented as
+`"abd..e..c.fg..."`. First, try to establish a syntax (BNF or syntax diagrams)
+and then write two methods, `toDotstring` and `fromDotstring`, which do the
+conversion in both directions.
+
+Example:
+
+    scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring
+    res0: String = abd..e..c.fg...
 
     scala> Tree.fromDotstring("abd..e..c.fg...")
     res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
-The file containing the full class definitions for this section is tree.scala.
+### P72 (easy)
 
-Multiway Trees
+A multiway tree is composed of a root element and a (possibly empty) set of
+successors which are multiway trees themselves. A multiway tree is never empty.
+The set of successor trees is sometimes called a forest.
 
-A multiway tree is composed of a root element and a (possibly empty) set of successors which are multiway trees themselves. A multiway tree is never empty. The set of successor trees is sometimes called a forest.
-
-The code to represent these is somewhat simpler than the code for binary trees, partly because we don't separate classes for nodes and terminators, and partly because we don't need the restriction that the value type be ordered.
+The code to represent these is somewhat simpler than the code for binary trees,
+partly because we don't separate classes for nodes and terminators, and partly
+because we don't need the restriction that the value type be ordered.
 
     case class MTree[+T](value: T, children: List[MTree[T]]) {
-    def this(value: T) = this(value, List())
-    override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
+        def this(value: T) = this(value, List())
+        override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
     }
 
     object MTree {
-    def apply[T](value: T) = new MTree(value, List())
-    def apply[T](value: T, children: List[MTree[T]]) = new MTree(value, children)
+        def apply[T](value: T) = new MTree(value, List())
+        def apply[T](value: T, children: List[MTree[T]]) = new MTree(value, children)
     }
 
 The example tree is, thus:
 
     MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e')))))
-The starting code skeleton for this section is mtree1.scala.
 
-P70B Omitted; we can only create well-formed trees.
+Write this initial code in a file and ensure it’s well typed.
 
-P70C (easy) Count the nodes of a multiway tree.
-Write a method nodeCount which counts the nodes of a given multiway tree.
-scala> MTree('a', List(MTree('f'))).nodeCount
-res0: Int = 2
-P70 (medium) Tree construction from a node string.
-We suppose that the nodes of a multiway tree contain single characters. In the depth-first order sequence of its nodes, a special character ^ has been inserted whenever, during the tree traversal, the move is a backtrack to the previous level.
-By this rule, the tree in the figure opposite is represented as:
+### P73 (easy)
 
-afg^^c^bd^e^^^
-Define the syntax of the string and write a function string2MTree to construct an MTree from a String. Make the function an implicit conversion from String. Write the reverse function, and make it the toString method of MTree.
+Write a method `nodeCount` which counts the nodes of a given multiway tree.
 
-scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
-res0: String = afg^^c^bd^e^^^
-P71 (easy) Determine the internal path length of a tree.
-We define the internal path length of a multiway tree as the total sum of the path lengths from the root to all nodes of the tree. By this definition, the tree in the figure of problem P70 has an internal path length of 9. Write a method internalPathLength to return that sum.
-scala> "afg^^c^bd^e^^^".internalPathLength
-res0: Int = 9
-P72 (easy) Construct the postorder sequence of the tree nodes.
-Write a method postorder which constructs the postorder sequence of the nodes of a multiway tree. The result should be a List.
-scala> "afg^^c^bd^e^^^".postorder
-res0: List[Char] = List(g, f, c, d, e, b, a)
-P73 (medium) Lisp-like tree representation.
-There is a particular notation for multiway trees in Lisp. Lisp is a prominent functional programming language. In Lisp almost everything is a list.
-Our example tree would be represented in Lisp as (a (f g) c (b d e)). The following pictures give some more examples.
+Example:
 
+    scala> MTree('a', List(MTree('f'))).nodeCount
+    res0: Int = 2
 
+### P74 (medium)
 
-Note that in the "lispy" notation a node with successors (children) in the tree is always the first element in a list, followed by its children. The "lispy" representation of a multiway tree is a sequence of atoms and parentheses '(' and ')', with the atoms separated by spaces. We can represent this syntax as a Scala String. Write a method lispyTree which constructs a "lispy string" from an MTree.
+We suppose that the nodes of a multiway tree contain single characters. In the
+depth-first order sequence of its nodes, a special character `^` has been
+inserted whenever, during the tree traversal, the move is a backtrack to the
+previous level.
+By this rule, the tree in the figure below is represented as:
 
-scala> MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree
-res0: String = (a (b c))
-As a second, even more interesting, exercise try to write a method that takes a "lispy" string and turns it into a multiway tree.
+    afg^^c^bd^e^^^
 
-[Note: Much of this problem is taken from the wording of the same problem in the Prolog set. This is certainly one way of looking at Lisp notation, but it's not how the language actually represents that syntax internally. I can elaborate more on this, if requested. <PMG>]
+![](imgs/p74.png)
 
-The complete source file for this section is mtree.scala.
+Define the syntax of the string and write a function `string2MTree` to
+construct an `MTree` from a `String`. Make the function an implicit conversion
+from `String`. Write the reverse function, and make it the `toString` method of
+`MTree`.
 
-Graphs
+Example:
 
-A graph is defined as a set of nodes and a set of edges, where each edge is a pair of nodes.
+    scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
+    res0: String = afg^^c^bd^e^^^
 
-The class to represent a graph is mutable, which isn't in keeping with pure functional programming, but a pure functional data structure would make things much, much more complicated. [Pure functional graphs with cycles require laziness; I think Scala can handle it, but I think that would add too much of a barrier to the following questions. <PMG>]
+### P75 (easy)
 
-Our Graphs use an incidence list internally. Each has a list of nodes and a list of edges. Each node also has a list of edges that connect it to other nodes. In a directed graph, nodes that are the target of arcs do not have references to those arcs in their adjacency list.
+We define the internal path length of a multiway tree as the total sum of the
+path lengths from the root to all nodes of the tree. By this definition, the
+tree in the figure of problem P74 has an internal path length of 9. Write a
+method `internalPathLength` to return that sum.
 
-abstract class GraphBase[T, U] {
-  case class Edge(n1: Node, n2: Node, value: U) {
-    def toTuple = (n1.value, n2.value, value)
-  }
-  case class Node(value: T) {
-    var adj: List[Edge] = Nil
-    def neighbors: List[Node] = adj.map(edgeTarget(_, this).get)
-  }
+Example:
 
-  var nodes: Map[T, Node] = Map()
-  var edges: List[Edge] = Nil
+    scala> "afg^^c^bd^e^^^".internalPathLength
+    res0: Int = 9
 
-  // If the edge E connects N to another node, returns the other node,
-  // otherwise returns None.
-  def edgeTarget(e: Edge, n: Node): Option[Node]
+### P76 (easy)
 
-  override def equals(o: Any) = o match {
-    case g: GraphBase[T,U] => (nodes.keys.toList -- g.nodes.keys.toList == Nil &&
-                               edges.map(_.toTuple) -- g.edges.map(_.toTuple) == Nil)
-    case _ => false
-  }
+Write a method `postorder` which constructs the postorder sequence of the nodes
+of a multiway tree. The result should be a List.
 
-  def addNode(value: T) = {
-    val n = new Node(value)
-    nodes = Map(value -> n) ++ nodes
-    n
-  }
-}
+Example:
 
-class Graph[T, U] extends GraphBase[T, U] {
-  override def equals(o: Any) = o match {
-    case g: Graph[T,U] => super.equals(g)
-    case _ => false
-  }
+    scala> "afg^^c^bd^e^^^".postorder
+    res0: List[Char] = List(g, f, c, d, e, b, a)
 
-  def edgeTarget(e: Edge, n: Node): Option[Node] =
-    if (e.n1 == n) Some(e.n2)
-    else if (e.n2 == n) Some(e.n1)
-    else None
+### P77 (medium)
 
-  def addEdge(n1: T, n2: T, value: U) = {
-    val e = new Edge(nodes(n1), nodes(n2), value)
-    edges = e :: edges
-    nodes(n1).adj = e :: nodes(n1).adj
-    nodes(n2).adj = e :: nodes(n2).adj
-  }
-}
+There is a particular notation for multiway trees in Lisp. Lisp is a prominent
+functional programming language. In Lisp almost everything is a list.
+Our example tree would be represented in Lisp as `(a (f g) c (b d e))`. The
+following pictures give some more examples.
 
-class Digraph[T, U] extends GraphBase[T, U] {
-  override def equals(o: Any) = o match {
-    case g: Digraph[T,U] => super.equals(g)
-    case _ => false
-  }
+![](imgs/p77.png)
 
-  def edgeTarget(e: Edge, n: Node): Option[Node] =
-    if (e.n1 == n) Some(e.n2)
-    else None
+Note that in the "lispy" notation a node with successors (children) in the tree
+is always the first element in a list, followed by its children. The "lispy"
+representation of a multiway tree is a sequence of atoms and parentheses '('
+and ')', with the atoms separated by spaces. We can represent this syntax as a
+Scala `String`. Write a method `lispyTree` which constructs a "lispy string"
+from an `MTree`.
 
-  def addArc(source: T, dest: T, value: U) = {
-    val e = new Edge(nodes(source), nodes(dest), value)
-    edges = e :: edges
-    nodes(source).adj = e :: nodes(source).adj
-  }
-}
-The full initial Graph code, which also includes objects for creating graphs, is in graph1.scala.
+Example:
 
-There are a few ways to create a graph from primitives. The graph-term form lists the nodes and edges separately:
+    scala> MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree
+    res0: String = (a (b c))
 
-Graph.term(List('b', 'c', 'd', 'f', 'g', 'h', 'k'),
-           List(('b', 'c'), ('b', 'f'), ('c', 'f'), ('f', 'k'), ('g', 'h')))
-The adjacency-list form associates each node with its adjacent nodes. In an undirected graph, care must be taken to ensure that all links are symmetric--if b is adjacent to c, c must also be adjacent to b.
+As a second, even more interesting, exercise try to write a method that takes a
+"lispy" string and turns it into a multiway tree.
 
-Graph.adjacent(List(('b', List('c', 'f')), ('c', List('b', 'f')), ('d', Nil),
-                    ('f', List('b', 'c', 'k')), ('g', List('h')), ('h', List('g')),
-                    ('k', List('f'))))
-The representations we introduced so far are bound to our implementation and therefore well suited for automated processing, but their syntax is not very user-friendly. Typing the terms by hand is cumbersome and error-prone. We can define a more compact and "human-friendly" notation as follows: A graph is represented by a string of terms of the type X or Y-Z separated by commas. The standalone terms stand for isolated nodes, the Y-Z terms describe edges. If an X appears as an endpoint of an edge, it is automatically defined as a node. Our example could be written as:
+----
 
-[b-c, f-c, g-h, d, f-b, k-f, h-g]
-We call this the human-friendly form. As the example shows, the list does not have to be sorted and may even contain the same edge multiple times. Notice the isolated node d.
+### P78 (medium)
 
-When the edges of a graph are directed, we call them arcs. These are represented by ordered pairs. Such a graph is called directed graph. To represent a directed graph, the forms discussed above are slightly modified. The example graph opposite is represented as follows:
+A graph is defined as a set of nodes and a set of edges, where each edge is a
+pair of nodes.
+
+The class to represent a graph is mutable, which isn't in keeping with pure
+functional programming, but a pure functional data structure would make things
+much, much more complicated.
+
+Our `Graphs` use an incidence list internally. Each has a list of nodes and a
+list of edges. Each node also has a list of edges that connect it to other
+nodes. In a directed graph, nodes that are the target of arcs do not have
+references to those arcs in their adjacency list.
+
+![](imgs/p78a.png)
+
+    abstract class GraphBase[T, U] {
+      case class Edge(n1: Node, n2: Node, value: U) {
+          def toTuple = (n1.value, n2.value, value)
+      }
+      case class Node(value: T) {
+          var adj: List[Edge] = Nil
+          def neighbors: List[Node] = adj.map(edgeTarget(_, this).get)
+      }
+
+      var nodes: Map[T, Node] = Map()
+      var edges: List[Edge] = Nil
+
+      // If the edge E connects N to another node, returns the other node,
+      // otherwise returns None.
+      def edgeTarget(e: Edge, n: Node): Option[Node]
+
+      override def equals(o: Any) = o match {
+          case g: GraphBase[T,U] => (nodes.keys.toList -- g.nodes.keys.toList == Nil &&
+                                  edges.map(_.toTuple) -- g.edges.map(_.toTuple) == Nil)
+          case _ => false
+      }
+
+      def addNode(value: T) = {
+          val n = new Node(value)
+          nodes = Map(value -> n) ++ nodes
+          n
+      }
+    }
+
+    class Graph[T, U] extends GraphBase[T, U] {
+      override def equals(o: Any) = o match {
+          case g: Graph[T,U] => super.equals(g)
+          case _ => false
+      }
+
+      def edgeTarget(e: Edge, n: Node): Option[Node] =
+          if (e.n1 == n) Some(e.n2)
+          else if (e.n2 == n) Some(e.n1)
+          else None
+
+      def addEdge(n1: T, n2: T, value: U) = {
+          val e = new Edge(nodes(n1), nodes(n2), value)
+          edges = e :: edges
+          nodes(n1).adj = e :: nodes(n1).adj
+          nodes(n2).adj = e :: nodes(n2).adj
+      }
+    }
+
+    class Digraph[T, U] extends GraphBase[T, U] {
+      override def equals(o: Any) = o match {
+          case g: Digraph[T,U] => super.equals(g)
+          case _ => false
+      }
+
+      def edgeTarget(e: Edge, n: Node): Option[Node] =
+          if (e.n1 == n) Some(e.n2)
+          else None
+
+      def addArc(source: T, dest: T, value: U) = {
+          val e = new Edge(nodes(source), nodes(dest), value)
+          edges = e :: edges
+          nodes(source).adj = e :: nodes(source).adj
+      }
+    }
+
+The full initial Graph code, which also includes objects for creating graphs,
+is in [graph1.scala][graph1].
+
+[graph1]: http://aperiodic.net/phil/scala/s-99/graph1.scala
+
+There are a few ways to create a graph from primitives. The <em>graph-term
+form</em> lists the nodes and edges separately:
+
+    Graph.term(List('b', 'c', 'd', 'f', 'g', 'h', 'k'),
+            List(('b', 'c'), ('b', 'f'), ('c', 'f'), ('f', 'k'), ('g', 'h')))
+
+The <em>adjacency-list</em> form associates each node with its adjacent nodes.
+In an undirected graph, care must be taken to ensure that all links are
+symmetric — if b is adjacent to c, c must also be adjacent to b.
+
+    Graph.adjacent(List(('b', List('c', 'f')), ('c', List('b', 'f')), ('d', Nil),
+                        ('f', List('b', 'c', 'k')), ('g', List('h')), ('h', List('g')),
+                        ('k', List('f'))))
+
+The representations we introduced so far are bound to our implementation and
+therefore well suited for automated processing, but their syntax is not very
+user-friendly. Typing the terms by hand is cumbersome and error-prone. We can
+define a more compact and "human-friendly" notation as follows: A graph is
+represented by a string of terms of the type X or Y-Z separated by commas. The
+standalone terms stand for isolated nodes, the Y-Z terms describe edges. If an
+X appears as an endpoint of an edge, it is automatically defined as a node. Our
+example could be written as:
+
+    [b-c, f-c, g-h, d, f-b, k-f, h-g]
+
+We call this the <em>human-friendly form</em>. As the example shows, the list
+does not have to be sorted and may even contain the same edge multiple times.
+Notice the isolated node d.
+
+![](imgs/p78b.png)
+
+When the edges of a graph are directed, we call them arcs. These are
+represented by ordered pairs. Such a graph is called directed graph. To
+represent a directed graph, the forms discussed above are slightly modified.
+The example graph opposite is represented as follows:
 
 graph-term form:
 
-Digraph.term(List('r', 's', 't', 'u', 'v'),
-             List(('s', 'r'), ('s', 'u'), ('u', 'r'), ('u', 's'), ('v', 'u')))
+    Digraph.term(List('r', 's', 't', 'u', 'v'),
+                List(('s', 'r'), ('s', 'u'), ('u', 'r'), ('u', 's'), ('v', 'u')))
+
 adjacency-list form:
 
-Digraph.adjacent(List(('r', Nil), ('s', List('r', 'u')), ('t', Nil),
-                      ('u', List('r', 's')), ('v', List('u'))))
+    Digraph.adjacent(List(('r', Nil), ('s', List('r', 'u')), ('t', Nil),
+                        ('u', List('r', 's')), ('v', List('u'))))
+
 (Note that the adjacency-list form is the same for graphs and digraphs.)
 
 human-friendly form:
 
-[s>r, t, u>r, s>u, u>s, v>u]
-Finally, graphs and digraphs may have additional information attached to nodes and edges (arcs). For the nodes, this is no problem, as we can put any type into them. On the other hand, for edges we have to extend our notation. Graphs with additional information attached to edges are called labeled graphs.
+    [s>r, t, u>r, s>u, u>s, v>u]
+
+Finally, graphs and digraphs may have additional information attached to nodes
+and edges (arcs). For the nodes, this is no problem, as we can put any type
+into them. On the other hand, for edges we have to extend our notation. Graphs
+with additional information attached to edges are called labeled graphs.
 
 graph-term form:
 
-Digraph.termLabel(List('k', 'm', 'p', 'q'),
-                  List(('m', 'q', 7), ('p', 'm', 5), ('p', 'q', 9)))
+    Digraph.termLabel(List('k', 'm', 'p', 'q'),
+                    List(('m', 'q', 7), ('p', 'm', 5), ('p', 'q', 9)))
+
 adjacency-list form:
 
-Digraph.adjacentLabel(
-  List(('k', Nil), ('m', List(('q', 7))), ('p', List(('m', 5), ('q', 9))),
-       ('q', Nil)))
+    Digraph.adjacentLabel(
+    List(('k', Nil), ('m', List(('q', 7))), ('p', List(('m', 5), ('q', 9))),
+        ('q', Nil)))
+
 human-friendly form:
 
-[p>q/9, m>q/7, k, p>m/5]
-The notation for labeled graphs can also be used for so-called multi-graphs, where more than one edge (or arc) is allowed between two given nodes.
+    [p>q/9, m>q/7, k, p>m/5]
 
-P80 (hard) Conversions.
-Write methods to generate the graph-term and adjacency-list forms from a Graph. Write another method to output the human-friendly form for a graph. Make it the toString method for Graph. Write more functions to create graphs from strings.
+The notation for labeled graphs can also be used for so-called multi-graphs,
+where more than one edge (or arc) is allowed between two given nodes.
+
+### P79 (hard)
+
+Write methods to generate the graph-term and adjacency-list forms from a
+`Graph`. Write another method to output the human-friendly form for a graph.
+Make it the `toString` method for `Graph`. Write more functions to create
+graphs from strings.
+
 Hint: You might need separate functions for labeled and unlabeled graphs.
 
-scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
-res0: (List[String], List[(String, String, Unit)]) = (List(d, k, h, c, f, g, b),List((h,g,()), (k,f,()), (f,b,()), (g,h,()), (f,c,()), (b,c,())))
+Example:
 
-scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").toAdjacentForm
-res1: List[(String, List[(String, Int)])] = List((m,List((q,7))), (p,List((m,5), (q,9))), (k,List()), (q,List()))
-P81 (medium) Path from one node to another one.
-Write a method named findPaths to find acyclic paths from one node to another in a graph. The method should return all paths.
-scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
-res0: List[List[String]] = List(List(p, q), List(p, m, q))
-    
-scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "k")
-res1: List[List[String]] = List()
-P82 (easy) Cycle from a given node.
-Write a method named findCycles to find closed paths (cycles) starting at a given node in a graph. The method should return all cycles.
-scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
-res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
-P83 (medium) Construct all spanning trees.
-Write a method spanningTrees to construct all spanning trees of a given graph. With this method, find out how many spanning trees there are for the graph depicted to the right. The data of this example graph can be found below. When you have a correct solution for the spanningTrees method, use it to define two other useful methods: isTree and isConnected. Both are five-minute tasks!
+    scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
+    res0: (List[String], List[(String, String, Unit)]) = (List(d, k, h, c, f, g, b),List((h,g,()), (k,f,()), (f,b,()), (g,h,()), (f,c,()), (b,c,())))
+
+    scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").toAdjacentForm
+    res1: List[(String, List[(String, Int)])] = List((m,List((q,7))), (p,List((m,5), (q,9))), (k,List()), (q,List()))
+
+### P80 (medium)
+
+Write a method named `findPaths` to find acyclic paths from one node to another
+in a graph. The method should return all paths.
+
+Example:
+
+    scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
+    res0: List[List[String]] = List(List(p, q), List(p, m, q))
+
+    scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "k")
+    res1: List[List[String]] = List()
+
+### P81 (easy)
+
+Write a method named `findCycles` to find closed paths (cycles) starting at a
+given node in a graph. The method should return all cycles.
+
+Example:
+
+    scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
+    res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
+
+### P82 (medium)
+
+Write a method `spanningTrees` to construct all spanning trees of a given
+graph. With this method, find out how many spanning trees there are for the
+graph depicted to the right. The data of this example graph can be found below.
+When you have a correct solution for the `spanningTrees` method, use it to
+define two other useful methods: `isTree` and `isConnected`. Both are
+five-minute tasks!
+
+![](imgs/p82.png)
+
 Graph:
 
-Graph.term(List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
-           List(('a', 'b'), ('a', 'd'), ('b', 'c'), ('b', 'e'),
-                ('c', 'e'), ('d', 'e'), ('d', 'f'), ('d', 'g'),
-                ('e', 'h'), ('f', 'g'), ('g', 'h')))
-scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
-res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
-P84 (medium) Construct the minimal spanning tree.
-Write a method minimalSpanningTree to construct the minimal spanning tree of a given labeled graph. Hint: Use Prim's Algorithm. A small modification of the solution of P83 does the trick. The data of the example graph to the right can be found below.
+    Graph.term(List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
+            List(('a', 'b'), ('a', 'd'), ('b', 'c'), ('b', 'e'),
+                    ('c', 'e'), ('d', 'e'), ('d', 'f'), ('d', 'g'),
+                    ('e', 'h'), ('f', 'g'), ('g', 'h')))
+
+Example:
+
+    scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
+    res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
+
+### P83 (medium)
+
+Write a method `minimalSpanningTree` to construct the minimal spanning tree of
+a given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
+solution of P83 does the trick. The data of the example graph to the right can
+be found below.
+
+![](imgs/p83.png)
+
 Graph:
 
-Graph.termLabel(
-  List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
-       List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
-            ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
-            ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
-scala> Graph.fromStringLabel("[a-b/1, b-c/2, a-c/3]").minimalSpanningTree
-res0: Graph[String,Int] = [a-b/1, b-c/2]
-P85 (medium) Graph isomorphism.
-Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is a bijection f: N1 â†’ N2 such that for any nodes X,Y of N1, X and Y are adjacent if and only if f(X) and f(Y) are adjacent.
+    Graph.termLabel(
+    List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
+        List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
+                ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
+                ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
+
+Example:
+
+    scala> Graph.fromStringLabel("[a-b/1, b-c/2, a-c/3]").minimalSpanningTree
+    res0: Graph[String,Int] = [a-b/1, b-c/2]
+
+### P84 (medium)
+
+Two graphs G<sub>1</sub>(N<sub>1</sub>,E<sub>1</sub>) and
+G<sub>2</sub>(N<sub>2</sub>,E<sub>2</sub>) are isomorphic if there is a
+bijection f: N<sub>1</sub> â†’ N<sub>2</sub> such that for any nodes X,Y of
+N<sub>1</sub>, X and Y are adjacent if and only if f(X) and f(Y) are adjacent.
+
 Write a method that determines whether two graphs are isomorphic.
 
-scala> Graph.fromString("[a-b]").isIsomorphicTo(Graph.fromString("[5-7]"))
-res0: Boolean = true
-P86 (medium) Node degree and graph coloration.
-a) Write a method Node.degree that determines the degree of a given node.
-scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodes("a").degree
-res0: Int = 3
-b) Write a method that lists all nodes of a graph sorted according to decreasing degree.
+Example:
 
-scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodesByDegree
-res1: List[Graph[String,Unit]#Node] = List(Node(a), Node(c), Node(b), Node(d))
-c) Use Welsh-Powell's algorithm to paint the nodes of a graph in such a way that adjacent nodes have different colors. Make a method colorNodes that returns a list of tuples, each of which contains a node and an integer representing its color.
+    scala> Graph.fromString("[a-b]").isIsomorphicTo(Graph.fromString("[5-7]"))
+    res0: Boolean = true
 
-scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
-res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
-P87 (medium) Depth-first order graph traversal.
-Write a method that generates a depth-first order graph traversal sequence. The starting point should be specified, and the output should be a list of nodes that are reachable from this starting point (in depth-first order).
-scala> Graph.fromString("[a-b, b-c, e, a-c, a-d]").nodesByDepthFrom("d")
-res0: List[String] = List(c, b, a, d)
-P88 (medium) Connected components.
+### P85 (medium)
+
+1. Write a method Node.degree that determines the degree of a given node.
+2. Write a method that lists all nodes of a graph sorted according to
+   decreasing degree.
+
+Example:
+
+    scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodes("a").degree
+    res0: Int = 3
+
+    scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodesByDegree
+    res1: List[Graph[String,Unit]#Node] = List(Node(a), Node(c), Node(b), Node(d))
+
+### P86 (medium)
+
+Use Welsh-Powell's algorithm to paint the nodes of a graph in such a way that
+adjacent nodes have different colors. Make a method `colorNodes` that returns a
+list of tuples, each of which contains a node and an integer representing its
+color.
+
+Example:
+
+    scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
+    res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
+
+### P87 (medium)
+
+Write a method that generates a depth-first order graph traversal sequence. The
+starting point should be specified, and the output should be a list of nodes
+that are reachable from this starting point (in depth-first order).
+
+Example:
+
+    scala> Graph.fromString("[a-b, b-c, e, a-c, a-d]").nodesByDepthFrom("d")
+    res0: List[String] = List(c, b, a, d)
+
+### P88 (medium)
+
 Write a function that splits a graph into its connected components.
-scala> Graph.fromString("[a-b, c]").splitGraph
-res0: List[Graph[String,Unit]] = List([a-b], [c])
-P89 (medium) Bipartite graphs.
+
+Example:
+
+    scala> Graph.fromString("[a-b, c]").splitGraph
+    res0: List[Graph[String,Unit]] = List([a-b], [c])
+
+### P89 (medium)
+
 Write a function that determines whether a given graph is bipartite.
-scala> Digraph.fromString("[a>b, c>a, d>b]").isBipartite
-res0: Boolean = true
 
-scala> Graph.fromString("[a-b, b-c, c-a]").isBipartite
-res1: Boolean = false
+Example:
 
-scala> Graph.fromString("[a-b, b-c, d]").isBipartite
-res2: Boolean = true
+    scala> Digraph.fromString("[a>b, c>a, d>b]").isBipartite
+    res0: Boolean = true
 
-scala> Graph.fromString("[a-b, b-c, d, e-f, f-g, g-e, h]").isBipartite
-res3: Boolean = false
-The complete source file for this section is graph.scala.
+    scala> Graph.fromString("[a-b, b-c, c-a]").isBipartite
+    res1: Boolean = false
 
------------------------------------------------------------------------------->
+    scala> Graph.fromString("[a-b, b-c, d]").isBipartite
+    res2: Boolean = true
+
+    scala> Graph.fromString("[a-b, b-c, d, e-f, f-g, g-e, h]").isBipartite
+    res3: Boolean = false
 
 ### P90 (medium)
 
