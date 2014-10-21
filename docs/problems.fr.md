@@ -113,8 +113,8 @@ Exemple :
 
 ### P03 (facile)
 
-Trouvez le K-ième élément d’une liste. Par convention, le premier élément
-commence à 0.
+Trouvez le K<sup>ème</sup> élément d’une liste. Par convention, le premier
+élément commence à 0.
 
 Exemple :
 
@@ -244,7 +244,7 @@ Exemple :
 
 ### P16 (moyen)
 
-Supprimez chaque N-ième élément d’une liste.
+Supprimez chaque N<sup>ème</sup> élément d’une liste.
 
 Exemple :
 
@@ -264,8 +264,8 @@ Exemple :
 ### P18 (moyen)
 
 Extrayez une partie d’une liste. Soit deux indices I et K, retournez une
-sous-liste comprenant les éléments entre (et incluant) le I-ième et le K-ième
-(exclu). Commencez à comptez à 0.
+sous-liste comprenant les éléments entre (et incluant) le I<sup>ème</sup> et
+le K<sup>ème</sup> (exclu). Commencez à comptez à 0.
 
 Exemple :
 
@@ -286,7 +286,7 @@ Exemples:
 
 ### P20 (facile)
 
-Supprimez le K-ième élément d’une liste. Retournez la nouvelle liste et
+Supprimez le K<sup>ème</sup> élément d’une liste. Retournez la nouvelle liste et
 l’élément supprimé dans un `Tuple`. Les éléments sont numérotés à partir de 0.
 
 Exemple :
@@ -1648,7 +1648,7 @@ Pour l’exemple ci-dessus, le problème peut être défini par deux listes
 Les puzzles publiés sont plus grands que cet exemple, par exemple 25×20, et
 n’ont apparemment que des solutions uniques.
 
-### [à traduire] P99 (difficile)
+### P99 (difficile)
 
 Soit une zone vide (ou presque vide) d’un jeu de mots-croisés et un ensemble de
 mots. Le problème consite à placer les mots dans la zone.
