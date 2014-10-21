@@ -2,6 +2,9 @@
 
 Cette liste de tests est une version modifiée de [celle de Phil Gold][pgold].
 
+Il reste un peu moins de 25 problèmes non traduits, ceux-ci sont préfixés par
+<i>[à traduire]</i>.
+
 [pgold]: http://aperiodic.net/phil/scala/s-99/
 
 ## Écrire une solution
@@ -53,7 +56,7 @@ Tapez ensuite `test` pour tester. Vous pouvez aussi utiliser `sbt test`
 directement depuis la ligne de commande mais ça prendra plus de temps car il
 faut que la JVM soit démarrée à chaque fois.
 
-### Problèmes
+## Problèmes
 
 ### P01 (facile)
 
@@ -648,10 +651,10 @@ correctement typé.
 
 ### P52 (moyen)
 
-Dans un arbre binaire complètement balancé, les propriétés suivantes sont
-vraies pour tous les nœuds : le nombre de nœuds dans son sous-arbre gauche est
-presque égal au nombre de nœuds dans son sous-arbre droit, ce qui signifie que
-leur différence n’est pas plus grande que 1.
+Dans un arbre binaire équilibré, les propriétés suivantes sont vraies pour tous
+les nœuds : le nombre de nœuds dans son sous-arbre gauche est presque égal au
+nombre de nœuds dans son sous-arbre droit, ce qui signifie que leur différence
+n’est pas plus grande que 1.
 Définissez un objet appelé `Tree`. Écrivez une fonction `Tree.cBalanced` pour
 construire un arbre binaire complètement balancé pour un nombre donné de nœuds.
 La fonction doit générer toutes les solutions. Elle doit prendre en paramètres
@@ -678,12 +681,9 @@ Exemple :
     scala> Node('a', Node('b'), Node('c')).isSymmetric
     res0: Boolean = true
 
--------------------------------------------------------------------------------
-TODO: traduire la suite
-
 ### P54 (moyen)
 
-Write a function to add an element to a binary search tree.
+Écrivez une fonction pour ajouter un élément à un arbre de recherche binaire.
 
 Exemple :
 
@@ -696,19 +696,22 @@ Exemple :
     scala> res1.addValue(0)
     res2: Node[Int] = T(2 T(0 . .) T(3 . .))
 
-Hint: The abstract definition of `addValue` in `Tree` should be
-`def addValue[U >: T <% Ordered[U]](x: U): Tree[U]`. The `>: T` is because
-`addValue`'s parameters need to be contravariant in `T`. (Conceptually, we're
-adding nodes above existing nodes. In order for the subnodes to be of type `T`
-or any subtype, the upper nodes must be of type `T` or any supertype.) The
-`<% Ordered[U]` allows us to use the `<` operator on the values in the tree.
+Astuce : la définition abstraite de `addValue` dans `Tree` devrait être
+`def addValue[U >: T <% Ordered[U]](x: U): Tree[U]`. La syntaxe `>: T` est
+utilisée ici car les paramètres de `addValue` doivent être des contravariants
+de `T` (nous ajoutons des nœuds au dessus d’autres nœuds. Pour que les
+sous-nœuds soient de type `T` ou n’importe quel sous-type, les nœuds du dessus
+doivent être de type `T` ou d’un sur-type). La syntaxe
+`<% Ordered[U]` nous permet d’utiliser l’opérateur `<` sur les values dans
+l’arbre.
 
-Use that function to construct a binary tree from a list of integers.
+Utilisez cette fonction pour construire un arbre binaire depuis une liste
+d’entiers.
 
     scala> Tree.fromList(List(3, 2, 5, 7, 1))
     res3: Node[Int] = T(3 T(2 T(1 . .) .) T(5 . T(7 . .)))
 
-Finally, use that function to test your solution to P53.
+Enfin, utilisez cette fonction pour tester votre solution au problème P53.
 
     scala> Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric
     res4: Boolean = true
@@ -718,20 +721,24 @@ Finally, use that function to test your solution to P53.
 
 ### P55 (moyen)
 
-Apply the generate-and-test paradigm to construct all symmetric, completely
-balanced binary trees with a given number of nodes.
+Appliquez le paradigme « generate-and-test » (« générez-et-testez ») pour
+construire tous les arbres binaires parfaitement balancés et symétriques qui
+ont un nombre de nœuds donné.
+
+Exemple :
 
     scala> Tree.symmetricBalancedTrees(5, "x")
     res0: List[Node[String]] = List(T(x T(x . T(x . .)) T(x T(x . .) .)), T(x T(x T(x . .) .) T(x . T(x . .))))
 
-### P56 (moyen)
+### 56 (moyen)
 
-In a height-balanced binary tree, the following property holds for every node:
-The height of its left subtree and the height of its right subtree are almost
-equal, which means their difference is not greater than one.
-Write a method `Tree.hbalTrees` to construct height-balanced binary trees for a
-given height with a supplied value for the nodes. The function should generate
-all solutions.
+Dans un arbre binaire équilibré, la propriété suivante est vraie pour tous les
+nœuds : le nombre de nœuds dans son sous-arbre gauche est presque égal au
+nombre de nœuds dans son sous-arbre droit, ce qui signifie que leur différence
+n’est pas plus grande que 1.
+Écrivez une méthode `Tree.hbalTrees` pour construire les arbres binaires
+équilibrés qui ont une hauteur donnée. La méthode prend en arguments la taille
+et une valeur à donner à chaque nœud. Elle doit générer toutes les solutions.
 
 Exemple :
 
@@ -740,11 +747,11 @@ Exemple :
 
 ### P57 (moyen)
 
-Consider a height-balanced binary tree of height H. What is the maximum number
-of nodes it can contain? Clearly, MaxN = 2<sup>H</sup> - 1. However, what is
-the minimum number MinN? This question is more difficult. Try to find a
-recursive statement and turn it into a function minHbalNodes that takes a
-height and returns MinN.
+Considérons un arbre binaire équilibré de hauteur H. Quel le nombre maximal de
+nœuds qu’il peut contenir ? Clairement, MaxN = 2<sup>H</sup> - 1. Cependant,
+quel est le nombre MinN minimum ? La question est plus difficile. Essayez de
+trouver une implémentation récursive et utilisez-la pour écrire une fonction
+`minHbalNodes` qui prend une taille et retourne `MinN`.
 
 Exemple :
 
@@ -755,8 +762,9 @@ Exemple :
 
 Ce problème est la suite du problème P57.
 
-On the other hand, we might ask: what is the maximum height H a height-balanced
-binary tree with N nodes can have? Write a maxHbalHeight function.
+D’un autre côté, nous pouvons nous demander quelle est la taille maximale H
+d’un arbre binaire équilibré avec N nœuds. Écrivez une fonction `maxHbalHeight`
+pour y répondre.
 
 Exemple :
 
@@ -767,15 +775,15 @@ Exemple :
 
 Ce problème est la suite du problème P58.
 
-Now, we can attack the main problem: construct all the height-balanced binary
-trees with a given nuber of nodes.
+Nous pouvons maintenant attaquer le problème principal : construisez tous les
+arbres binaires équilibrés avec un nombre donné de nœuds.
 
 Exemple :
 
     scala> Tree.hbalTreesWithNodes(4, "x")
     res2: List[Node[String]] = List(T(x T(x T(x . .) .) T(x . .)), T(x T(x . T(x . .)) T(x . .)), ...
 
-Find out how many height-balanced trees exist for N = 15.
+Trouvez combien d’arbres équilibrés existent pour N = 15.
 
 ### P60 (facile)
 
@@ -809,45 +817,46 @@ Exemple :
 
 ### P63 (facile)
 
-A node of a binary tree is at level N if the path from the root to the node has
-length N-1. The root node is at level 1. Write a method `atLevel` to collect
-all nodes at a given level in a list.
+Un nœud d’arbre binaire est au niveau N si le chemin depuis la racine jusqu’au
+nœud a une longueur N-1. La racine est au niveau 1. Écrivez une méthode
+`atLevel` pour récupérer tous les nœuds à un niveau donné sous forme de liste.
 
 Exemple :
 
     scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
     res0: List[Char] = List(b, c)
 
-Using `atLevel` it is easy to construct a method levelOrder which creates the
-level-order sequence of the nodes. However, there are more efficient ways to do
-that.
+Il est facile de construire une méthode `levelOrder` en utilisant `atLevel` qui
+crée une séquence de tous les nœuds ordonnés par leur niveau. Il y a aussi des
+façons plus efficaces de le faire.
 
-### P64 (moyen) Construct a complete binary tree.
+### P64 (moyen)
 
-A complete binary tree with height H is defined as follows: The levels
-1,2,3,…,H-1 contain the maximum number of nodes (i.e 2<sup>(i-1)</sup> at the
-level i, note that we start counting the levels from 1 at the root). In level
-H, which may contain less than the maximum possible number of nodes, all the
-nodes are "left-adjusted". This means that in a levelorder tree traversal all
-internal nodes come first, the leaves come second, and empty successors (the
-`End`s which are not really nodes!) come last. Particularly, complete binary
-trees are used as data structures (or addressing schemes) for heaps.
+Un arbre binaire complet de taille H est défini de la façon suivante : les
+niveaux 1, 2, 3, …, H-1 contiennent le nombre maximal de nœuds (soit
+2<sup>(i-1)</sup> au niveau i, sachant que la racine est au niveau 1). Tous les
+nœuds d’un niveau H, qui peut contenir moins que le nombre maximum de nœuds,
+sont « alignés à gauche. » Cela signifie que si l’on parcours les nœuds suivant
+l’ordre retourné par `levelOrder` (voir problème P63), tous les nœuds internes
+viennent en premier, puis les feuilles, puis les enfants vides (les `End`s qui
+ne sont pas vraiment des nœuds !). En particulier, les arbres binaires complets
+sont utilisés comme structures de données pour les tas.
 
-We can assign an address number to each node in a complete binary tree by
-enumerating the nodes in levelorder, starting at the root with number 1. In
-doing so, we realize that for every node X with address A the following
-property holds: The address of X's left and right successors are 2\*A and
-2\*A+1, respectively, supposed the successors do exist. This fact can be used
-to elegantly construct a complete binary tree structure. Write a method
-`completeBinaryTree` that takes as parameters the number of nodes and the value
-to put in each node.
+Nous pouvons assigner un numéro d’adresse à chaque nœud d’un arbre binaire
+complet en énumérant les nœuds avec `levelOrder`, en commençant avec 1 pour la
+racine. En faisant ça, nous réalisons que pour chaque nœud X avec une adresse A
+la propriété suivante s’applique : l’adresse des enfants gauche et droite de X
+sont respectivement 2\*A et 2\*A+1, en supposant que ces enfants existent. Ce
+fait peut être utilisé pour construire élégamment une structure d’arbre binaire
+complet. Écrivez une méthode `completeBinaryTree` qui prend en paramètres le
+nombre de nœuds et la valeur à donner à chacun d’eux.
 
 Exemple :
 
     scala> Tree.completeBinaryTree(6, "x")
     res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
 
-### P65 (moyen)
+### [à traduire] P65 (moyen)
 
 As a preparation for drawing a tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several layout
@@ -885,26 +894,26 @@ Use it to check your code.
 
 ### P66 (moyen)
 
-An alternative layout method is depicted in the illustration below. Find out
-the rules and write the corresponding method. Hint: On a given level, the
-horizontal distance between neighboring nodes is constant.
+Une mise en forme alternative est montrée dans l’illustration ci-dessous.
+Trouvez les règles et écrivez la méthode correspondante. Astuce : à un niveau
+donné, la distance horizontale entre les nœuds voisins est constante.
 
-Use the same conventions as in problem P65.
+![](imgs/p66.png)
+
+Utilisez les mêmes conventions que dans le problème P65.
 
 Exemple :
 
     scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
     res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
 
-The pictured tree may be constructed with:
+L’arbre de l’image peut être construit avec :
 
     Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q'))
 
-Use it to check your code.
+Utilisez-le pour vérifier votre code.
 
-![](imgs/p66.png)
-
-### P67 (difficile)
+### [à traduire] P67 (difficile)
 
 Yet another layout strategy is shown in the illustration below. The method
 yields a very compact layout while maintaining a certain symmetry in every
@@ -924,7 +933,7 @@ Exemple :
 
 Which layout do you like most?
 
-### P68 (moyen)
+### [à traduire] P68 (moyen)
 
 Somebody represents binary trees as strings of the following type (see example
 below):
@@ -950,7 +959,7 @@ Exemple :
     scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
     res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
-### P69 (moyen)
+### [à traduire] P69 (moyen)
 
 We consider binary trees with nodes that are identified by single lower-case
 letters, as in the example of problem P68.
@@ -968,7 +977,7 @@ Exemple :
     scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
     res1: List[Char] = List(d, b, e, a, c, g, f)
 
-### P70 (moyen)
+### [à traduire] P70 (moyen)
 
 This is a follow-up to P69.
 
@@ -984,7 +993,7 @@ Exemple :
 What happens if the same character appears in more than one node? Try, for
 instance, `Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a'))`.
 
-### P71 (moyen)
+### [à traduire] P71 (moyen)
 
 We consider again binary trees with nodes that are identified by single
 lower-case letters, as in the example of problem P68. Such a tree can be
@@ -1003,7 +1012,7 @@ Exemple :
     scala> Tree.fromDotstring("abd..e..c.fg...")
     res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
-### P72 (facile)
+### [à traduire] P72 (facile)
 
 A multiway tree is composed of a root element and a (possibly empty) set of
 successors which are multiway trees themselves. A multiway tree is never empty.
@@ -1038,7 +1047,7 @@ Exemple :
     scala> MTree('a', List(MTree('f'))).nodeCount
     res0: Int = 2
 
-### P74 (moyen)
+### [à traduire] P74 (moyen)
 
 We suppose that the nodes of a multiway tree contain single characters. In the
 depth-first order sequence of its nodes, a special character `^` has been
@@ -1060,7 +1069,7 @@ Exemple :
     scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
     res0: String = afg^^c^bd^e^^^
 
-### P75 (facile)
+### [à traduire] P75 (facile)
 
 We define the internal path length of a multiway tree as the total sum of the
 path lengths from the root to all nodes of the tree. By this definition, the
@@ -1072,7 +1081,7 @@ Exemple :
     scala> "afg^^c^bd^e^^^".internalPathLength
     res0: Int = 9
 
-### P76 (facile)
+### [à traduire] P76 (facile)
 
 Write a method `postorder` which constructs the postorder sequence of the nodes
 of a multiway tree. The result should be a List.
@@ -1082,7 +1091,7 @@ Exemple :
     scala> "afg^^c^bd^e^^^".postorder
     res0: List[Char] = List(g, f, c, d, e, b, a)
 
-### P77 (moyen)
+### [à traduire] P77 (moyen)
 
 There is a particular notation for multiway trees in Lisp. Lisp is a prominent
 functional programming language. In Lisp almost everything is a list.
@@ -1106,7 +1115,7 @@ Exemple :
 As a second, even more interesting, exercise try to write a method that takes a
 "lispy" string and turns it into a multiway tree.
 
-### P78 (moyen)
+### [à traduire] P78 (moyen)
 
 A graph is defined as a set of nodes and a set of edges, where each edge is a
 pair of nodes.
@@ -1267,14 +1276,15 @@ human-friendly form:
 The notation for labeled graphs can also be used for so-called multi-graphs,
 where more than one edge (or arc) is allowed between two given nodes.
 
-### P79 (difficile)
+### [à traduire] P79 (difficile)
 
 Write methods to generate the graph-term and adjacency-list forms from a
 `Graph`. Write another method to output the human-friendly form for a graph.
 Make it the `toString` method for `Graph`. Write more functions to create
 graphs from strings.
 
-Hint: You might need separate functions for labeled and unlabeled graphs.
+Astuce : Vous aurez peut-être besoin d’utiliser des fonctions séparées pour les
+graphes labellés et non-labellés.
 
 Exemple :
 
@@ -1286,8 +1296,8 @@ Exemple :
 
 ### P80 (moyen)
 
-Write a method named `findPaths` to find acyclic paths from one node to another
-in a graph. The method should return all paths.
+Écrivez une méthode `findPaths` pour trouver les chemins acycliques depuis un
+nœud vers un autre dans un graphe. La méthode doit retourner tous les chemins.
 
 Exemple :
 
@@ -1299,15 +1309,16 @@ Exemple :
 
 ### P81 (facile)
 
-Write a method named `findCycles` to find closed paths (cycles) starting at a
-given node in a graph. The method should return all cycles.
+Écrivez une méthode `findCycles` pour trouver les chemins fermés (cycles) qui
+commencent à un nœud donné dans un graphe. La méthode doit retourner tous les
+cycles.
 
 Exemple :
 
     scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
     res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
 
-### P82 (moyen)
+### [à traduire] P82 (moyen)
 
 Write a method `spanningTrees` to construct all spanning trees of a given
 graph. With this method, find out how many spanning trees there are for the
@@ -1330,7 +1341,7 @@ Exemple :
     scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
     res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
 
-### P83 (moyen)
+### [à traduire] P83 (moyen)
 
 Write a method `minimalSpanningTree` to construct the minimal spanning tree of
 a given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
@@ -1354,12 +1365,12 @@ Exemple :
 
 ### P84 (moyen)
 
-Two graphs G<sub>1</sub>(N<sub>1</sub>,E<sub>1</sub>) and
-G<sub>2</sub>(N<sub>2</sub>,E<sub>2</sub>) are isomorphic if there is a
-bijection f: N<sub>1</sub> â†’ N<sub>2</sub> such that for any nodes X,Y of
-N<sub>1</sub>, X and Y are adjacent if and only if f(X) and f(Y) are adjacent.
+Deux graphes G<sub>1</sub>(N<sub>1</sub>,E<sub>1</sub>) et
+G<sub>2</sub>(N<sub>2</sub>,E<sub>2</sub>) sont isomorphiques si il y a une
+bijection f: N<sub>1</sub> â†’ N<sub>2</sub> telle que pour n’importe quels
+nœuds X, Y de N<sub>1</sub>, X et Y sont adjacents si et seulement si f(X) et f(Y) sont adjacents.
 
-Write a method that determines whether two graphs are isomorphic.
+Écrivez une méthode qui détermine si deux graphes sont isomorphiques.
 
 Exemple :
 
@@ -1368,9 +1379,9 @@ Exemple :
 
 ### P85 (moyen)
 
-1. Write a method Node.degree that determines the degree of a given node.
-2. Write a method that lists all nodes of a graph sorted according to
-   decreasing degree.
+1. Écrivez une méthode `Node.degree` qui détermine le degré d’un nœud donné.
+2. Écrivez une méthode qui liste tous les nœuds d’un graphe triés selon leur
+   degré, du plus haut au plus bas.
 
 Exemple :
 
@@ -1382,17 +1393,17 @@ Exemple :
 
 ### P86 (moyen)
 
-Use Welsh-Powell's algorithm to paint the nodes of a graph in such a way that
-adjacent nodes have different colors. Make a method `colorNodes` that returns a
-list of tuples, each of which contains a node and an integer representing its
-color.
+Utilisez l’algorithme de Welsh-Powell pour peindre les nœuds d’un graphe tels
+que tous les nœuds adjacents ont des couleurs différentes. Ajoutez une méthode
+`colorNodes` qui retourne une liste de tuples, chacun contenant un nœud et un
+entier représentant sa couleur.
 
 Exemple :
 
     scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
     res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
 
-### P87 (moyen)
+### [à traduire] P87 (moyen)
 
 Write a method that generates a depth-first order graph traversal sequence. The
 starting point should be specified, and the output should be a list of nodes
@@ -1432,19 +1443,19 @@ Exemple :
 
 ### P90 (moyen)
 
-The “eight queens problem” is a classical problem in computer science. The
-objective is to place eight queens on a chessboard so that no two queens are
-attacking each other; i.e., no two queens are in the same row, the same column,
-or on the same diagonal.
+Le problème des « huits reines » est un problème classique en informatique.
+L’objectif est de placer huit reines sur un échiquier telles que deux reines ne
+s’attaquent pas entre elles, c’est-à-dire que deux reines ne sont jamais sur la
+même ligne, colonne ou diagonale.
 
-Hint: Represent the positions of the queens as a list of numbers `1..N`.
-Exemple : `List(4, 2, 7, 3, 6, 8, 5, 1)` means that the queen in the first
-column is in row `4`, the queen in the second column is in row `2`, etc. Use
-the [generate-and-test paradigm][gentest].
+Astuce : Représentez les positions des reines comme une liste de nombres
+`1..N`. Par exemple `List(4, 2, 7, 3, 6, 8, 5, 1)` signifie que la reine dans
+la première colonne est sur la ligne 4, la reine dans la seconde colonne est
+sur la ligne 2, etc. Utilisez le paradigme « [générez-et-testez][gentest]. »
 
 [gentest]: https://www.siggraph.org/education/materials/HyperVis/concepts/gen_test.htm
 
-### P91 (moyen)
+### [à traduire] P91 (moyen)
 
 Another famous problem is this one: How can a knight jump on an `NÃ-N`
 chessboard in such a way that it visits every square exactly once?
@@ -1463,7 +1474,7 @@ calculates the tours as needed?
 Can you find only "closed tours", where the knight can jump from its final
 position back to its starting position?
 
-### P92 (difficile)
+### [à traduire] P92 (difficile)
 
 The Von Koch's conjecture puzzle goes like this: Given a tree with `N` nodes
 (and hence `N-1` edges), find a way to enumerate the nodes from `1` to `N` and,
@@ -1485,12 +1496,13 @@ the solution for the larger tree pictured below?
 
 ### P93 (difficile)
 
-Given a list of integer numbers, find a correct way of inserting arithmetic
-signs (operators) such that the result is a correct equation. Exemple : With the
-list of numbers `List(2,3,5,7,11)` we can form the equations `2-3+5+7 = 11` or
-`2 = (3*5+7)/11` (and ten others!).
+Soit une liste de nombres entiers donnée, trouvez une façon correcte d’insérer
+des symboles arithmétiques (opérateurs) tels que le résultat soit une équation
+correcte. Par exemple, avec la liste de nombres `List(2,3,5,7,11)`, nous
+pouvons former les équations `2-3+5+7 = 11` ou `2 = (3*5+7)/11` (et dix autres
+!).
 
-### P94 (difficile) Generate K-regular simple graphs with N nodes.
+### [à traduire] P94 (difficile)
 
 In a K-regular graph all nodes have a degree of K; i.e. the number of edges
 incident in each node is K. How many (non-isomorphic!) 3-regular graphs with 6
@@ -1502,11 +1514,12 @@ nodes are there? See also a [table of results][p94-table] and a
 
 ### P95 (moyen)
 
-On financial documents, like checks, numbers must sometimes be written in full
-words. Exemple : 175 must be written as one-seven-five. Write a function
-`fullWords(num: Int)` to print (non-negative) integer numbers in full words.
+Les documents financiers tels que les chèques requièrent parfois que les
+nombres soient écrits en français. Par exemple, 175 doit être écrit « cent
+soixante-quinze. » Écrivez une fonction `fullWords(num: Int)` pour afficher les
+entiers (positifs) en français.
 
-### P96 (moyen)
+### [à traduire] P96 (moyen)
 
 In a certain programming language (Ada) identifiers are defined by the syntax
 diagram (railroad chart) below. Transform the syntax diagram into a system
@@ -1516,7 +1529,7 @@ whether or not a given string is a legal identifier.
 
 ![](imgs/P96.png)
 
-### P97 (moyen)
+### [à traduire] P97 (moyen)
 
 Les puzzles de Sudoku ressemblent à la figure suivante :
 
@@ -1547,7 +1560,7 @@ problem is to fill the missing spots with digits in such a way that every
 number between 1 and 9 appears exactly once in each row, in each column, and in
 each square.
 
-### P98 (difficile)
+### [à traduire] P98 (difficile)
 
 Around 1994, a certain kind of puzzles was very popular in England. The "Sunday
 Telegraph" newspaper wrote:
@@ -1584,7 +1597,7 @@ the rows and columns, top-to-bottom and left-to-right, respectively. Published
 puzzles are larger than this example, e.g. 25Ã—20, and apparently always have
 unique solutions.
 
-### P99 (difficile)
+### [à traduire] P99 (difficile)
 
 Given an empty (or almost empty) framework of a crossword puzzle and a set of
 words. The problem is to place the words into the framework.
