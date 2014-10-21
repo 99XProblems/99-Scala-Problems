@@ -728,7 +728,7 @@ Example:
 Consider a height-balanced binary tree of height H. What is the maximum number
 of nodes it can contain? Clearly, MaxN = 2<sup>H</sup> - 1. However, what is
 the minimum number MinN? This question is more difficult. Try to find a
-recursive statement and turn it into a function minHbalNodes that takes a
+recursive statement and turn it into a function `minHbalNodes` that takes a
 height and returns MinN.
 
 Example:
@@ -741,7 +741,7 @@ Example:
 This is a follow-up to P57.
 
 On the other hand, we might ask: what is the maximum height H a height-balanced
-binary tree with N nodes can have? Write a maxHbalHeight function.
+binary tree with N nodes can have? Write a `maxHbalHeight` function.
 
 Example:
 
@@ -753,7 +753,7 @@ Example:
 This is a follow-up to P58.
 
 Now, we can attack the main problem: construct all the height-balanced binary
-trees with a given nuber of nodes.
+trees with a given number of nodes.
 
 Example:
 
@@ -802,11 +802,11 @@ Example:
     scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
     res0: List[Char] = List(b, c)
 
-Using `atLevel` it is easy to construct a method levelOrder which creates the
+Using `atLevel` it is easy to construct a method `levelOrder` which creates the
 level-order sequence of the nodes. However, there are more efficient ways to do
 that.
 
-### P64 (medium) Construct a complete binary tree.
+### P64 (medium)
 
 A complete binary tree with height H is defined as follows: The levels
 1,2,3,…,H-1 contain the maximum number of nodes (i.e 2<sup>(i-1)</sup> at the
@@ -1352,7 +1352,7 @@ Example:
 
 ### P85 (medium)
 
-1. Write a method Node.degree that determines the degree of a given node.
+1. Write a method `Node.degree` that determines the degree of a given node.
 2. Write a method that lists all nodes of a graph sorted according to
    decreasing degree.
 
@@ -1474,7 +1474,7 @@ signs (operators) such that the result is a correct equation. Example: With the
 list of numbers `List(2,3,5,7,11)` we can form the equations `2-3+5+7 = 11` or
 `2 = (3*5+7)/11` (and ten others!).
 
-### P94 (hard) Generate K-regular simple graphs with N nodes.
+### P94 (hard)
 
 In a K-regular graph all nodes have a degree of K; i.e. the number of edges
 incident in each node is K. How many (non-isomorphic!) 3-regular graphs with 6
