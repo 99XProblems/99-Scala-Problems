@@ -4,7 +4,7 @@ This is a set of 99 Scala problems of various level of difficulty.
 
 Translations:
 
-* [french](README.fr.md)
+* [French](README.fr.md)
 
 ## Instructions
 

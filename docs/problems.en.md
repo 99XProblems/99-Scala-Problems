@@ -537,7 +537,7 @@ variables, e.g: `(a: Boolean, b: Boolean) => and(or(a, b), nand(a, b))`
 
 You need to do P46 first.
 
-Now, write a function called table2 which prints the truth table of a given
+Now, write a function called `table2` which prints the truth table of a given
 logical expression in two variables.
 
 Example:
@@ -623,7 +623,7 @@ give it type `Nothing`, which is a subtype of every other type.)
     def apply[T](value: T): Node[T] = Node(value, End, End)
     }
 
-The example tree on the right is given by:
+The example tree above is given by:
 
     Node('a',
         Node('b', Node('d'), Node('e')),
