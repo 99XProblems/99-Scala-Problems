@@ -1,34 +1,30 @@
-# 99 Scala Problems
+# 99 Problèmes en Scala
 
-This is a set of 99 Scala problems of various level of difficulty.
-
-Translations:
-
-* [french](README.fr.md)
+Ce projet représente 99 problèmes en Scala de divers niveaux de difficulté.
 
 ## Instructions
 
-1. Get a copy of this repo
-2. Read the [problems list][problems-en]
-3. Solve 'em ;)
+1. Récupérez une copie du projet
+2. Lisez la [liste de problèmes][problems-fr]
+3. Résolvez-les ;)
 
-[problems-en]: https://github.com/99XProblems/99-Scala-Problems/blob/master/docs/problems.en.md
+[problems-fr]: https://github.com/99XProblems/99-Scala-Problems/blob/master/docs/problems.fr.md
 
-### With Git & GitHub
+### Avec Git & GitHub
 
-[Fork this repo][fork] then get your local version:
+[Forkez ce projet][fork] puis récupérez votre version locale :
 
     git clone https://github.com/<your-username>/99-Scala-Problems.git
     cd 99-Scala-Problems
 
 [fork]: https://github.com/99XProblems/99-Scala-Problems/fork
 
-### With Git only
+### Avec Git seulement
 
     $ git clone https://github.com/99XProblems/99-Scala-Problems.git
     $ cd 99-Scala-Problems
 
-### Without Git
+### Sans Git
 
     $ wget https://github.com/99XProblems/99-Scala-Problems/archive/master.zip
     $ unzip master.zip

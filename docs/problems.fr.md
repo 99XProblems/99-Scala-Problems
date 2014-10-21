@@ -1,241 +1,244 @@
-# 99 Scala Problems
+# 99 problèmes en Scala
 
-These tests are a modified version of [Phil Gold’s list][pgold].
+Cette liste de tests est une version modifiée de [celle de Phil Gold][pgold].
 
 [pgold]: http://aperiodic.net/phil/scala/s-99/
 
-## Writing a solution
+## Écrire une solution
 
-Each problem has two files: one for its implementation, the other for its
-tests.
+Chaque problème a deux fichiers : l’un pour son implémentation, l’autre pour
+ses tests.
 
-The implementation for problem `<N>` is in `src/main/scala/P<N>.scala` while
-its tests are in `src/test/scala/P<N>Spec.scala`.
+L’implémentation du problème `<N>` est dans `src/main/scala/P<N>.scala` tandis
+que ses tests sont dans `src/test/scala/P<N>Spec.scala`.
 
-Write your solution as a method on the object `P<N>`. You can anything you like
-in the file to answer the problem.
+Écrivez votre solution dans une méthode sur l’objet `P<N>`. Vous pouvez ajoutez
+ce que vous voulez en plus dans chaque fichier pour résoudre les problèmes.
 
-Tests are written with [ScalaTest][scalatest]. Open the
-`src/test/scala/P<N>Spec.scala` file, and in the `P<N>Spec` class use the
-following syntax:
-
-```scala
-"the_name_of_your_method" should "something it should do" in {
-  // test code
-}
-
-it should "something else it should do" in {
-  // test code
-}
-
-// more tests
-```
-
-Each test can use `assert` to check for expected values:
+Les tests sont écrits avec [ScalaTest][scalatest]. Ouvrez le fichier
+`src/test/scala/P<N>Spec.scala`, et utilisez la syntaxe suivante dans la classe
+`P<N>Spec`:
 
 ```scala
-assert(some_result == expected_value)
+"le_nom_de_la_methode" should "quelque chose que la methode devrait faire" in {
+  // code du test
+}
+
+it should "quelque chose d'autre" in {
+  // code du test
+}
+
+// plus de tests
 ```
 
-Read [ScalaTest’s docs][scalatestdocs] for more info.
+Chaque test peut utiliser `assert` pour vérifier des valeurs attendues :
+
+```scala
+assert(un_resultat == une_valeur_attendue)
+```
+
+Lisez [la documentation de ScalaTest][scalatestdocs] (en anglais) pour plus
+d’informations.
 
 [scalatest]: http://www.scalatest.org/user_guide/writing_your_first_test
 [scalatestdocs]: http://www.scalatest.org/user_guide/using_assertions
 
-## Test
+## Testez
 
-Start `sbt` in the project directory:
+Lancez `sbt` dans le répertoire racine du projet :
 
     $ sbt
 
-Then type `test` to test. You can also use `sbt test` from the command-line but
-that’s longer since the JVM has to be started everytime.
+Ensuitez tapez `test` pour tester. Vous pouvez aussi utiliser `sbt test`
+directement depuis la ligne de commande mais ça prendra plus de temps car il
+faut que la JVM soit démarrée à chaque fois.
 
-### Problems
+### Problèmes
 
-### P01 (easy)
+### P01 (facile)
 
-Find the last element of a list.
+Trouvez le dernier élément d’une liste.
 
-Example:
+Exemple:
 
     scala> last(List(1, 1, 2, 3, 5, 8))
     res0: Int = 8
 
-### P02 (easy)
+### P02 (facile)
 
-Find the last but one element of a list.
+Trouvez l’avant-dernier élément d’une liste.
 
-Example:
+Exemple:
 
     scala> penultimate(List(1, 1, 2, 3, 5, 8))
     res0: Int = 5
 
-### P03 (easy)
+### P03 (facile)
 
-Find the Kth element of a list. By convention, the first element in the list is
-element 0.
+Trouvez le K-ième élément d’une liste. Par convention, le premier élément
+commence à 0.
 
-Example:
+Exemple:
 
     scala> nth(2, List(1, 1, 2, 3, 5, 8))
     res0: Int = 2
 
-### P04 (easy)
+### P04 (facile)
 
-Find the number of elements of a list.
+Trouvez le nombre d’éléments d’une liste.
 
-Example:
+Exemple:
 
     scala> length(List(1, 1, 2, 3, 5, 8))
     res0: Int = 6
 
-### P05 (easy)
+### P05 (facile)
 
-Reverse a list.
+Inversez une liste.
 
-Example:
+Exemple:
 
     scala> reverse(List(1, 1, 2, 3, 5, 8))
     res0: List[Int] = List(8, 5, 3, 2, 1, 1)
 
-### P06 (easy)
+### P06 (facile)
 
-Find out whether a list is a palindrome.
+Déterminez si une liste est un palindrome.
 
-Example:
+Exemple:
 
     scala> isPalindrome(List(1, 2, 3, 2, 1))
     res0: Boolean = true
 
-### P07 (medium)
+### P07 (moyen)
 
-Flatten a nested list structure.
+Désimbriquez une liste.
 
-Example:
+Exemple:
 
     scala> flatten(List(List(1, 1), 2, List(3, List(5, 8))))
     res0: List[Any] = List(1, 1, 2, 3, 5, 8)
 
-### P08 (medium)
+### P08 (moyen)
 
-Eliminate consecutive duplicates of list elements. If a list contains repeated
-elements they should be replaced with a single copy of the element. The order
-of the elements should not be changed.
+Supprimez les éléments consécutifs dupliqués. Si une liste contient plusieurs
+éléments égaux répétés, ils doivent êtres remplacés par une seule occurrence de
+l’élément. L’ordre des éléments ne doit pas être modifié.
 
-Example:
+Exemple:
 
     scala> compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
     res0: List[Symbol] = List('a, 'b, 'c, 'a, 'd, 'e)
 
-### P09 (medium)
+### P09 (moyen)
 
-Pack consecutive duplicates of list elements into sublists. If a list contains
-repeated elements they should be placed in separate sublists.
+Regroupez les éléments consécutifs dupliqués dans des sous-liste. Si une liste
+contient des éléments répétés, ils doivent être placé dans des sous-listes
+séparées.
 
-Example:
+Exemple:
 
     scala> pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
     res0: List[List[Symbol]] = List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e))
 
-### P10 (easy)
+### P10 (facile)
 
-Run-length encoding of a list. Use the result of problem P09 to implement the
-so-called run-length encoding data compression method. Consecutive duplicates
-of elements are encoded as tuples (N, E) where N is the number of duplicates of
-the element E.
+Codage par plage d’une liste : utilisez le résultat du problème P09 pour
+implémenter la méthode de compression [par plages][p10-rle]. Les éléments
+consécutifs dupliqués sont encodés comme des tuples (N, E), où N est le nombre
+d’occurrences de l’élément E.
 
-Example:
+[p10-rle]: https://fr.wikipedia.org/wiki/Run-length_encoding
+
+Exemple:
 
     scala> encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
     res0: List[(Int, Symbol)] = List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))
 
-### P11 (easy)
+### P11 (facile)
 
-Modified run-length encoding. Modify the result of problem P10 in such a way
-that if an element has no duplicates it is simply copied into the result list.
-Only elements with duplicates are transferred as (N, E) terms.
+Codage par plage modifié : modifiez le résultat du problème P10 tel que si un
+élément n’est pas dupliqué il est simplement copié dans la liste résultante.
+Seuls les éléments dupliqués sont transférés comme des tuples (N, E).
 
-Example:
+Exemple:
 
     scala> encodeModified(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
     res0: List[Any] = List((4,'a), 'b, (2,'c), (2,'a), 'd, (4,'e))
 
-### P12 (medium)
+### P12 (moyen)
 
-Decode a run-length encoded list. Given a run-length code list generated as
-specified in problem P10, construct its uncompressed version.
+Décodez une liste telle que celles retournées par la fonction du problème P11.
 
-Example:
+Exemple:
 
     scala> decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
     res0: List[Symbol] = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
 
-### P13 (medium)
+### P13 (moyen)
 
-Run-length encoding of a list (direct solution). Implement the so-called
-run-length encoding data compression method directly. I.e. don't use other
-methods you've written (like P09's pack); do all the work directly.
+Codage par plage directe : implémentez la méthode de compression décrite dans
+le problème P11 directement, c’est-à-dire sans utiliser de méthode déjà écrite
+(comme la méthode `pack` du problème P09) : faites tout directement.
 
-Example:
+Exemple:
 
     scala> encodeDirect(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
     res0: List[(Int, Symbol)] = List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))
 
-### P14 (easy)
+### P14 (facile)
 
-Duplicate the elements of a list.
+Dupliquez les éléments d’une liste.
 
-Example:
+Exemple:
 
     scala> duplicate(List('a, 'b, 'c, 'c, 'd))
     res0: List[Symbol] = List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd)
 
-### P15 (medium)
+### P15 (moyen)
 
-Duplicate the elements of a list a given number of times.
+Dupliquez les éléments d’une liste un nombre donné de fois.
 
-Example:
+Exemple:
 
     scala> duplicateN(3, List('a, 'b, 'c, 'c, 'd))
     res0: List[Symbol] = List('a, 'a, 'a, 'b, 'b, 'b, 'c, 'c, 'c, 'c, 'c, 'c, 'd, 'd, 'd)
 
-### P16 (medium)
+### P16 (moyen)
 
-Drop every Nth element from a list.
+Supprimez chaque N-ième élément d’une liste.
 
-Example:
+Exemple:
 
     scala> drop(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
     res0: List[Symbol] = List('a, 'b, 'd, 'e, 'g, 'h, 'j, 'k)
 
-### P17 (easy)
+### P17 (facile)
 
-Split a list into two parts. The length of the first part is given. Use a
-`Tuple` for your result.
+Divisez une liste en deux parts, la longueur de la première étant donnée.
+Utilisez un `Tuple` pour votre résultat.
 
-Example:
+Exemple:
 
     scala> split(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
     res0: (List[Symbol], List[Symbol]) = (List('a, 'b, 'c),List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
 
-### P18 (medium)
+### P18 (moyen)
 
-Extract a slice from a list. Given two indices, I and K, the slice is the list
-containing the elements from and including the Ith element up to but not
-including the Kth element of the original list. Start counting the elements
-with 0.
+Extrayez une partie d’une liste. Soit deux indices I et K, retournez une
+sous-liste comprenant les éléments entre (et incluant) le I-ième et le K-ième
+(exclu). Commencez à comptez à 0.
 
-Example:
+Exemple:
 
     scala> slice(3, 7, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
     res0: List[Symbol] = List('d, 'e, 'f, 'g)
 
-### P19 (medium)
+### P19 (moyen)
 
-Rotate a list N places to the left.
+Faites une rotation de liste N fois à gauche.
 
-Examples:
+Exemples:
 
     scala> rotate(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
     res0: List[Symbol] = List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c)
@@ -243,238 +246,240 @@ Examples:
     scala> rotate(-2, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
     res1: List[Symbol] = List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i)
 
-### P20 (easy)
+### P20 (facile)
 
-Remove the Kth element from a list. Return the list and the removed element in
-a `Tuple`. Elements are numbered from 0.
+Supprimez le K-ième élément d’une liste. Retournez la nouvelle liste et
+l’élément supprimé dans un `Tuple`. Les éléments sont numérotés à partir de 0.
 
-Example:
+Exemple:
 
     scala> removeAt(1, List('a, 'b, 'c, 'd))
     res0: (List[Symbol], Symbol) = (List('a, 'c, 'd),'b)
 
-### P21 (easy)
+### P21 (facile)
 
-Insert an element at a given position into a list.
+Insérez un élément à une position donnée dans une liste.
 
-Example:
+Exemple:
 
     scala> insertAt('new, 1, List('a, 'b, 'c, 'd))
     res0: List[Symbol] = List('a, 'new, 'b, 'c, 'd)
 
-### P22 (easy)
+### P22 (facile)
 
-Create a list containing all integers within a given range.
+Créez une liste contenant tous les entiers dans un intervalle donné.
 
-Example:
+Exemple:
 
     scala> range(4, 9)
     res0: List[Int] = List(4, 5, 6, 7, 8, 9)
 
-### P23 (medium)
+### P23 (moyen)
 
-Extract a given number of randomly selected elements from a list.
+Extrayez un nombre donné d’élément choisis aléatoirement depuis une liste.
 
-Example:
+Exemple:
 
     scala> randomSelect(3, List('a, 'b, 'c, 'd, 'f, 'g, 'h))
     res0: List[Symbol] = List('e, 'd, 'a)
 
 Hint: Use the solution to problem P20
 
-### P24 (easy)
+### P24 (facile)
 
-Lotto: Draw N different random numbers from the set 1..M.
+Loto : Générez N nombres aléatoires différents depuis l’intervalle 1..M.
 
-Example:
+Exemple:
 
     scala> lotto(6, 49)
     res0: List[Int] = List(23, 1, 17, 33, 21, 37)
 
-### P25 (easy)
+### P25 (facile)
 
-Generate a random permutation of the elements of a list.
+Générez une permutation aléatoire des éléments d’une liste.
 
-Example:
+Exemple:
 
     scala> randomPermute(List('a, 'b, 'c, 'd, 'e, 'f))
     res0: List[Symbol] = List('b, 'a, 'd, 'c, 'e, 'f)
 
-Hint: Use the solution of problem P23.
+Astuce : utilisez la solution du problème P23.
 
-### P26 (medium)
+### P26 (moyen)
 
-Generate the combinations of K distinct objects chosen from the N elements of a
-list. In how many ways can a committee of 3 be chosen from a group of 12
-people? We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes
-the well-known binomial coefficient). For pure mathematicians, this result may
-be great. But we want to really generate all the possibilities.
+Générez les combinaisons de K éléments distincts choisis parmi les N éléments
+d’une liste. En combien de façons différentes peut-on choisir un comité de 3
+personnes dans un groupe de 12 ? Il y a C(12, 3) = 220 possibilités (C(N, K)
+représente le coefficient binomial). Pour les mathématiciens, ce résultat peut
+être très bien. Mais nous voulous vraiment générer toutes les possibilités.
 
-Example:
+Exemple:
 
     scala> combinations(3, List('a, 'b, 'c, 'd, 'e, 'f))
     res0: List[List[Symbol]] = List(List('a, 'b, 'c), List('a, 'b, 'd), List('a, 'b, 'e), ...
 
-### P27 (medium)
+### P27 (moyen)
 
-Group the elements of a set into disjoint subsets.
+Groupez les éléments d’un ensemble en sous-ensembles disjoints.
 
-In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3
-and 4 persons? Write a function that generates all the possibilities.
+En combien de façons différentes peut-on faire travailler un groupe de 9
+personnes en trois groupes disjoints de 2, 3 et 4 personnes ? Écrivez une
+fonction qui génère toutes les possibilités.
 
-Example:
+Exemple:
 
     scala> group3(List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida"))
     res0: List[List[List[String]]] = List(List(List(Aldo, Beat), List(Carla, David, Evi), List(Flip, Gary, Hugo, Ida)), ...
 
-### P28 (medium)
+### P28 (moyen)
 
-You need to do P27 first.
+Généralisez le prédicat du problème P27 de façon à ce qu’on puisse spécifier
+une liste de tailles de groupes.
 
-Generalize the predicate from P27 in a way that we can specify a list of group
-sizes and the predicate will return a list of groups.
-
-Example:
+Exemple:
 
     scala> group(List(2, 2, 5), List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida"))
     res0: List[List[List[String]]] = List(List(List(Aldo, Beat), List(Carla, David), List(Evi, Flip, Gary, Hugo, Ida)), ...
 
-Note that we do not want permutations of the group members; i.e.
-`((Aldo, Beat), ...)` is the same solution as `((Beat, Aldo), ...)`. However,
-we make a difference between `((Aldo, Beat), (Carla, David), ...)` and
-`((Carla, David), (Aldo, Beat), ...)`.
+Notez qu’on ne veut pas faire de permutations sur les membres de groupes, i.e.
+`((Aldo, Beat), ...)` ne représente pas la même solution que
+`((Beat, Aldo), ...)`. Cependant, nous faisons une différence entre
+`((Aldo, Beat), (Carla, David), ...)` et `((Carla, David), (Aldo, Beat), ...)`.
 
-You may find more about this combinatorial problem in a good book on discrete mathematics under the term "multinomial coefficients".
+### P29 (moyen)
 
-### P29 (medium)
+Triez une liste de listes en fonction de la longueur des sous-listes. On
+suppose qu’une liste contient des éléments qui sont eux-mêmes des listes.
+L’objectif est de trier les éléments de la liste en fonction de leur longueur,
+c’est-à-dire avec les courtes listes en premier et les plus longues en dernier,
+ou vice-versa.
 
-Sorting a list of lists according to length of sublists.
-We suppose that a list contains elements that are lists themselves. The
-objective is to sort the elements of the list according to their length. E.g.
-short lists first, longer lists later, or vice versa.
-
-Example:
+Exemple:
 
     scala> lsort(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
     res0: List[List[Symbol]] = List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l))
 
-### P30 (medium)
+### P30 (moyen)
 
-You need to do P29 first.
+Ce problème est une suite du problème P29. On suppose qu’on a le même type de
+liste que défini précédemment, mais cette fois-ci l’objectif est de trier les
+éléments par rapport à leur fréquence de longueur, i.e. les listes avec les
+longueurs les plus rares sont en premier et celles avec les longueurs les plus
+fréquentes sont en dernier.
 
-Again, we suppose that a list contains elements that are lists themselves. But
-this time the objective is to sort the elements according to their length
-frequency; i.e. in the default, sorting is done ascendingly, lists with rare
-lengths are placed, others with a more frequent length come later.
-
-Example:
+Exemple:
 
     scala> lsortFreq(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
     res1: List[List[Symbol]] = List(List('i, 'j, 'k, 'l), List('o), List('a, 'b, 'c), List('f, 'g, 'h), List('d, 'e), List('d, 'e), List('m, 'n))
 
-Note that in the above example, the first two lists in the result have length 4
-and 1 and both lengths appear just once. The third and fourth lists have length
-3 and there are two list of this length. Finally, the last three lists have
-length 2. This is the most frequent length.
+Notez que dans l’exemple ci-dessus, les deux premières listes dans le résultat
+ont une longueur de 4 et 1, et chacune de ces longueurs n’apparait qu’une fois.
+Les troisième et quatrième listes ont une longueur de 3 et il y a deux listes
+avec cette longueur. Enfin, les trois dernières ont une longueur de 1, c’est la
+longueur la plus fréquente.
 
-### P31 (medium)
+### P31 (moyen)
 
-Determine whether a given integer number is prime.
+Déterminez si un entier donné est premier.
 
-Example:
+Exemple:
 
     scala> isPrime(7)
     res0: Boolean = true
 
-### P32 (medium)
+### P32 (moyen)
 
-Determine the greatest common divisor of two positive integer numbers. Use
-Euclid's algorithm.
+Déterminez le plus grand diviseur commun (PGCD) de deux entiers positifs
+non-nuls.
+Utilisez l’algorithme d’Euclide.
 
-Example:
+Exemple:
 
     scala> gcd(36, 63)
     res0: Int = 9
 
-### P33 (easy)
+### P33 (facile)
 
-Determine whether two positive integer numbers are coprime. Two numbers are
-coprime if their greatest common divisor equals 1.
+Vérifiez si deux entiers positifs non nuls sont premiers entre eux. Deux
+nombres sont premiers entre eux si leur PGCD vaut 1.
 
-Example:
+Exemple:
 
     scala> isCoprimeTo(35, 64)
     res0: Boolean = true
 
-### P34 (medium)
+### P34 (moyen)
 
-Calculate Euler's totient function phi(m). Euler's so-called totient function
-phi(m) is defined as the number of positive integers r (1 <= r <= m) that are
-coprime to m.
+Claculez la fonction indicatrice d’Euler phi(m). L’indicatrice d’Euler phi(m)
+est définie comme le nombre d’entiers positifs r (1 ≤ r ≤ m) qui sont premiers
+avec m.
 
-Example:
+Exemple:
 
     scala> totient(10)
     res0: Int = 4
 
-### P35 (medium)
+### P35 (moyen)
 
-Determine the prime factors of a given positive integer. Construct a flat list
-containing the prime factors in ascending order.
+Déterminez les facteurs premiers d’un entier positif non nul donné. Retournez
+une liste contenant les facteurs en ordre ascendant.
 
-Example:
+Exemple:
 
     scala> primeFactors(315)
     res0: List[Int] = List(3, 3, 5, 7)
 
-### P36 (medium)
+### P36 (moyen)
 
-Determine the prime factors of a given positive integer (2). Construct a list
-containing the prime factors and their multiplicity.
+Ce problème est une variante du problème P35 où au lieu de retourner seulement
+les facteurs, il faut retourner leur nombre d’occurences en plus.
 
-Example:
+Exemple:
 
     scala> primeFactorMultiplicity(315)
     res0: List[(Int, Int)] = List((3,2), (5,1), (7,1))
 
-Alternately, use a `Map` for the result:
+De façon alternative, utilisez un `Map` pour le résultat :
 
     scala> primeFactorMultiplicity(315)
     res0: Map[Int,Int] = Map(3 -> 2, 5 -> 1, 7 -> 1)
 
-### P37 (medium)
+### P37 (moyen)
 
-Calculate Euler's totient function phi(m) (improved).
-See problem P34 for the definition of Euler's totient function. If the list of
-the prime factors of a number m is known in the form of problem P36 then the
-function `phi(m>)` can be efficiently calculated as follows:
-Let `[[p1, m1], [p2, m2], [p3, m3], ...]` be the list of prime factors (and
-their multiplicities) of a given number `m`. Then `phi(m)` can be calculated
-with the following formula:
+Ce problème est une variante améliorée du problème P34. Lisez-le pour une
+définition de l’Indicatrice d’Euler.
+Si la liste des facteurs premiers d’un nombre m est connue sous la forme du
+problème P36 alors la fonction `phi(m>)` peut être calculé plus efficacement de
+la façon suivante :
+Soit `[[p1, m1], [p2, m2], [p3, m3], ...]` la liste des facteurs premiers (et
+leur nombre d’occurrences) d’un entier donné `m`. Alors `phi(m)` peut être
+calculé avec la formule suivante :
 
     phi(m) = (p1-1)*p1(m1-1) * (p2-1)*p2(m2-1) * (p3-1)*p3(m3-1) * ...
 
-Note that <cite>a<sup>b</sup></cite> stands for the <cite>b<sup>th</sup></cite>
-power of <cite>a</cite>.
+Notez que <cite>a<sup>b</sup></cite> représente la <cite>b<sup>ème</sup></cite>
+puissance de <cite>a</cite>.
 
-### P38 (easy)
+### P38 (facile)
 
-Compare the two methods of calculating Euler's totient function. Use the
-solutions of problems P34 and P37 to compare the algorithms. Try to calculate
-`phi(10090)` as an example.
+Comparez les deux méthodes de calcul de l’Indicatrice d’Euler. Utilisez les
+solutions des problèmes P34 et P37 pour comparer les algorithmes. Essayez de
+calculer `phi(10090)` par exemple.
 
-### P39 (easy)
+### P39 (facile)
 
-A list of prime numbers.
-Given a range of integers by its lower and upper limit, construct a list of all
-prime numbers in that range.
+Construisez la liste de tous les nombres premiers présents dans un intervalle
+donné.
 
-Example:
+Exemple:
 
     scala> listPrimesinRange(7 to 31)
     res0: List[Int] = List(7, 11, 13, 17, 19, 23, 29, 31)
 
-### P40 (medium)
+-------------------------------------------------------------------------------
+TODO : traduire la suite.
+
+### P40 (moyen)
 
 Goldbach's conjecture says that every positive even number greater than 2 is
 the sum of two prime numbers. E.g. 28 = 5 + 23. It is one of the most famous
@@ -483,17 +488,17 @@ case. It has been numerically confirmed up to very large numbers (much larger
 than Scala's Int can represent). Write a function to find the two prime numbers
 that sum up to a given even integer.
 
-Example:
+Exemple:
 
     scala> goldbach(28)
     res0: (Int, Int) = (5,23)
 
-### P41 (medium)
+### P41 (moyen)
 
 Given a range of integers by its lower and upper limit, print a list of all
 even numbers and their Goldbach composition.
 
-Example:
+Exemple:
 
     scala> printGoldbachList(9 to 20)
     10 = 3 + 7
@@ -507,7 +512,7 @@ In most cases, if an even number is written as the sum of two prime numbers,
 one of them is very small. Very rarely, the primes are both bigger than, say,
 50. Try to find out how many such cases there are in the range 2..3000.
 
-Example (minimum value of 50 for the primes):
+Exemple (minimum value of 50 for the primes):
 
     scala> printGoldbachListLimited(1 to 2000, 50)
     992 = 73 + 919
@@ -515,14 +520,14 @@ Example (minimum value of 50 for the primes):
     1856 = 67 + 1789
     1928 = 61 + 1867
 
-### P46 (medium)
+### P46 (moyen)
 
 Define functions `and`, `or`, `nand`, `nor`, `xor`, `impl`, and `equ` (for
 logical equivalence) which return `true` or `false` according to the result of
 their respective operations; e.g. `and(A, B)` is true if and only if both `A`
 and `B` are true.
 
-Example:
+Exemple:
 
     scala> and(true, true)
     res0: Boolean = true
@@ -533,14 +538,14 @@ Example:
 A logical expression in two variables can then be written as an function of two
 variables, e.g: `(a: Boolean, b: Boolean) => and(or(a, b), nand(a, b))`
 
-### P47 (medium)
+### P47 (moyen)
 
 You need to do P46 first.
 
 Now, write a function called table2 which prints the truth table of a given
 logical expression in two variables.
 
-Example:
+Exemple:
 
     scala> table2((a: Boolean, b: Boolean) => and(a, or(a, b)))
     A     B     result
@@ -549,7 +554,7 @@ Example:
     false true  false
     false false false
 
-### P48 (easy)
+### P48 (facile)
 
 Continue problem P46 by redefining and, or, etc as operators. (i.e. make them
 methods of a new class with an implicit conversion from `Boolean`.) not will
@@ -562,7 +567,7 @@ have to be left as a object method.
     false true  false
     false false false
 
-### P49 (medium)
+### P49 (moyen)
 
 An n-bit Gray code is a sequence of n-bit strings constructed according to
 certain rules. For example:
@@ -573,14 +578,14 @@ certain rules. For example:
 
 Find out the construction rules and write a function to generate Gray codes.
 
-Example:
+Exemple:
 
     scala> gray(3)
     res0 List[String] = List(000, 001, 011, 010, 110, 111, 101, 100)
 
 See if you can use memoization to make the function more efficient.
 
-### P50 (hard)
+### P50 (difficile)
 
 First of all, consult a good book on discrete mathematics or algorithms for a
 detailed description of Huffman codes!
@@ -589,12 +594,12 @@ Tuples. E.g. `(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5))`.
 Our objective is to construct a list of `(S, C)` Tuples, where `C` is the
 Huffman code word for the symbol `S`.
 
-Example:
+Exemple:
 
     scala> huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)))
     res0: List[String, String] = List((a,0), (b,101), (c,100), (d,111), (e,1101), (f,1100))
 
-### P51 (medium)
+### P51 (moyen)
 
 A binary tree is either empty or it is composed of a root element and two
 successors, which are binary trees themselves.
@@ -634,7 +639,7 @@ A tree with only a root node would be `Node('a')` and an empty tree would be
 
 Write the previous code in a file and ensure it’s well typed.
 
-### P52 (medium)
+### P52 (moyen)
 
 In a completely balanced binary tree, the following property holds for every
 node: The number of nodes in its left subtree and the number of nodes in its
@@ -645,12 +650,12 @@ completely balanced binary trees for a given number of nodes. The function
 should generate all solutions. The function should take as parameters the
 number of nodes and a single value to put in all of them.
 
-Example:
+Exemple:
 
     scala> Tree.cBalanced(4, "x")
     res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x T(x . .) .)), ...
 
-### P53 (medium)
+### P53 (moyen)
 
 Let us call a binary tree symmetric if you can draw a vertical line through the
 root node and then the right subtree is the mirror image of the left subtree.
@@ -661,16 +666,16 @@ Hint: Write an `isMirrorOf` method first to check whether one tree is the
 mirror image of another. We are only interested in the structure, not in the
 contents of the nodes.
 
-Example:
+Exemple:
 
     scala> Node('a', Node('b'), Node('c')).isSymmetric
     res0: Boolean = true
 
-### P54 (medium)
+### P54 (moyen)
 
 Write a function to add an element to a binary search tree.
 
-Example:
+Exemple:
 
     scala> End.addValue(2)
     res0: Node[Int] = T(2 . .)
@@ -701,7 +706,7 @@ Finally, use that function to test your solution to P53.
     scala> Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric
     res5: Boolean = false
 
-### P55 (medium)
+### P55 (moyen)
 
 Apply the generate-and-test paradigm to construct all symmetric, completely
 balanced binary trees with a given number of nodes.
@@ -709,7 +714,7 @@ balanced binary trees with a given number of nodes.
     scala> Tree.symmetricBalancedTrees(5, "x")
     res0: List[Node[String]] = List(T(x T(x . T(x . .)) T(x T(x . .) .)), T(x T(x T(x . .) .) T(x . T(x . .))))
 
-### P56 (medium)
+### P56 (moyen)
 
 In a height-balanced binary tree, the following property holds for every node:
 The height of its left subtree and the height of its right subtree are almost
@@ -718,12 +723,12 @@ Write a method `Tree.hbalTrees` to construct height-balanced binary trees for a
 given height with a supplied value for the nodes. The function should generate
 all solutions.
 
-Example:
+Exemple:
 
     scala> Tree.hbalTrees(3, "x")
     res0: List[Node[String]] = List(T(x T(x T(x . .) T(x . .)) T(x T(x . .) T(x . .))), T(x T(x T(x . .) T(x . .)) T(x T(x . .) .)), ...
 
-### P57 (medium)
+### P57 (moyen)
 
 Consider a height-balanced binary tree of height H. What is the maximum number
 of nodes it can contain? Clearly, MaxN = 2<sup>H</sup> - 1. However, what is
@@ -731,73 +736,74 @@ the minimum number MinN? This question is more difficult. Try to find a
 recursive statement and turn it into a function minHbalNodes that takes a
 height and returns MinN.
 
-Example:
+Exemple:
 
     scala> minHbalNodes(3)
     res0: Int = 4
 
-### P58 (medium)
+### P58 (moyen)
 
-This is a follow-up to P57.
+Ce problème est la suite du problème P57.
 
 On the other hand, we might ask: what is the maximum height H a height-balanced
 binary tree with N nodes can have? Write a maxHbalHeight function.
 
-Example:
+Exemple:
 
     scala> maxHbalHeight(4)
     res1: Int = 3
 
-### P59 (medium)
+### P59 (moyen)
 
-This is a follow-up to P58.
+Ce problème est la suite du problème P58.
 
 Now, we can attack the main problem: construct all the height-balanced binary
 trees with a given nuber of nodes.
 
-Example:
+Exemple:
 
     scala> Tree.hbalTreesWithNodes(4, "x")
     res2: List[Node[String]] = List(T(x T(x T(x . .) .) T(x . .)), T(x T(x . T(x . .)) T(x . .)), ...
 
 Find out how many height-balanced trees exist for N = 15.
 
-### P60 (easy)
+### P60 (facile)
 
-A leaf is a node with no successors. Write a method `leafCount` to count them.
+Une feuille est un nœud sans enfants. Écrivez une méthode `leafCount` pour les
+compter.
 
-Example:
+Exemple:
 
     scala> Node('x', Node('x'), End).leafCount
     res0: Int = 1
 
-### 61 (easy)
+### 61 (facile)
 
-A leaf is a node with no successors. Write a method `leafList` to collect them
-in a list.
+Une feuille est un nœud sans enfants. Écrivez une méthode `leafList` pour les
+récupérer dans une liste.
 
-Example:
+Exemple:
 
     scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
     res0: List[Char] = List(b, d, e)
 
-### P62 (easy)
+### P62 (facile)
 
-An internal node of a binary tree has either one or two non-empty successors.
-Write a method `internalList` to collect them in a list.
+Un nœud interne d’arbre binaire a soit un ou deux enfants non-vides. Écrivez
+une méthode `internalList` pour les récupérer sous forme de liste.
 
-Example:
+Exemple:
 
     scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList
     res0: List[Char] = List(a, c)
 
-### P63 (easy)
+### P63 (facile)
 
 A node of a binary tree is at level N if the path from the root to the node has
 length N-1. The root node is at level 1. Write a method `atLevel` to collect
 all nodes at a given level in a list.
 
-Example:
+Exemple:
 
     scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
     res0: List[Char] = List(b, c)
@@ -806,7 +812,7 @@ Using `atLevel` it is easy to construct a method levelOrder which creates the
 level-order sequence of the nodes. However, there are more efficient ways to do
 that.
 
-### P64 (medium) Construct a complete binary tree.
+### P64 (moyen) Construct a complete binary tree.
 
 A complete binary tree with height H is defined as follows: The levels
 1,2,3,…,H-1 contain the maximum number of nodes (i.e 2<sup>(i-1)</sup> at the
@@ -826,12 +832,12 @@ to elegantly construct a complete binary tree structure. Write a method
 `completeBinaryTree` that takes as parameters the number of nodes and the value
 to put in each node.
 
-Example:
+Exemple:
 
     scala> Tree.completeBinaryTree(6, "x")
     res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
 
-### P65 (medium)
+### P65 (moyen)
 
 As a preparation for drawing a tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several layout
@@ -867,7 +873,7 @@ The pictured tree may be constructed with:
 
 Use it to check your code.
 
-### P66 (medium)
+### P66 (moyen)
 
 An alternative layout method is depicted in the illustration below. Find out
 the rules and write the corresponding method. Hint: On a given level, the
@@ -875,7 +881,7 @@ horizontal distance between neighboring nodes is constant.
 
 Use the same conventions as in problem P65.
 
-Example:
+Exemple:
 
     scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
     res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
@@ -888,7 +894,7 @@ Use it to check your code.
 
 ![](imgs/p66.png)
 
-### P67 (hard)
+### P67 (difficile)
 
 Yet another layout strategy is shown in the illustration below. The method
 yields a very compact layout while maintaining a certain symmetry in every
@@ -899,7 +905,7 @@ pack together two subtrees to construct the combined binary tree?
 Use the same conventions as in problem P65 and P66. Note: This is a difficult
 problem. Don't give up too early!
 
-Example:
+Exemple:
 
     scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3
     res0: PositionedNode[Char] = T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .))
@@ -908,7 +914,7 @@ Example:
 
 Which layout do you like most?
 
-### P68 (medium)
+### P68 (moyen)
 
 Somebody represents binary trees as strings of the following type (see example
 below):
@@ -926,7 +932,7 @@ the usual form.
 For simplicity, suppose the information in the nodes is a single letter and
 there are no spaces in the string.
 
-Example:
+Exemple:
 
     scala> Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString
     res0: String = a(b(d,e),c(,f(g,)))
@@ -934,7 +940,7 @@ Example:
     scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
     res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
-### P69 (medium)
+### P69 (moyen)
 
 We consider binary trees with nodes that are identified by single lower-case
 letters, as in the example of problem P68.
@@ -944,7 +950,7 @@ sequence of a given binary tree, respectively. The results should be lists,
 e.g. `List('a','b','d','e','c','f','g')` for the preorder sequence of the
 example in problem P68.
 
-Example:
+Exemple:
 
     scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder
     res0: List[Char] = List(a, b, d, e, c, f, g)
@@ -952,7 +958,7 @@ Example:
     scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
     res1: List[Char] = List(d, b, e, a, c, g, f)
 
-### P70 (medium)
+### P70 (moyen)
 
 This is a follow-up to P69.
 
@@ -960,7 +966,7 @@ If both the preorder sequence and the inorder sequence of the nodes of a binary
 tree are given, then the tree is determined unambiguously. Write a method
 `preInTree` that does the job.
 
-Example:
+Exemple:
 
     scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
     res2: Node[Char] = a(b(d,e),c(,f(g,)))
@@ -968,7 +974,7 @@ Example:
 What happens if the same character appears in more than one node? Try, for
 instance, `Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a'))`.
 
-### P71 (medium)
+### P71 (moyen)
 
 We consider again binary trees with nodes that are identified by single
 lower-case letters, as in the example of problem P68. Such a tree can be
@@ -979,7 +985,7 @@ traversal. For example, the tree shown in problem P68 is represented as
 and then write two methods, `toDotstring` and `fromDotstring`, which do the
 conversion in both directions.
 
-Example:
+Exemple:
 
     scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring
     res0: String = abd..e..c.fg...
@@ -987,7 +993,7 @@ Example:
     scala> Tree.fromDotstring("abd..e..c.fg...")
     res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
-### P72 (easy)
+### P72 (facile)
 
 A multiway tree is composed of a root element and a (possibly empty) set of
 successors which are multiway trees themselves. A multiway tree is never empty.
@@ -1013,16 +1019,16 @@ The example tree is, thus:
 
 Write this initial code in a file and ensure it’s well typed.
 
-### P73 (easy)
+### P73 (facile)
 
-Write a method `nodeCount` which counts the nodes of a given multiway tree.
+Écrivez une méthode `nodeCount` qui compte les nœuds d’un arbre donné.
 
-Example:
+Exemple:
 
     scala> MTree('a', List(MTree('f'))).nodeCount
     res0: Int = 2
 
-### P74 (medium)
+### P74 (moyen)
 
 We suppose that the nodes of a multiway tree contain single characters. In the
 depth-first order sequence of its nodes, a special character `^` has been
@@ -1039,34 +1045,34 @@ construct an `MTree` from a `String`. Make the function an implicit conversion
 from `String`. Write the reverse function, and make it the `toString` method of
 `MTree`.
 
-Example:
+Exemple:
 
     scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
     res0: String = afg^^c^bd^e^^^
 
-### P75 (easy)
+### P75 (facile)
 
 We define the internal path length of a multiway tree as the total sum of the
 path lengths from the root to all nodes of the tree. By this definition, the
 tree in the figure of problem P74 has an internal path length of 9. Write a
 method `internalPathLength` to return that sum.
 
-Example:
+Exemple:
 
     scala> "afg^^c^bd^e^^^".internalPathLength
     res0: Int = 9
 
-### P76 (easy)
+### P76 (facile)
 
 Write a method `postorder` which constructs the postorder sequence of the nodes
 of a multiway tree. The result should be a List.
 
-Example:
+Exemple:
 
     scala> "afg^^c^bd^e^^^".postorder
     res0: List[Char] = List(g, f, c, d, e, b, a)
 
-### P77 (medium)
+### P77 (moyen)
 
 There is a particular notation for multiway trees in Lisp. Lisp is a prominent
 functional programming language. In Lisp almost everything is a list.
@@ -1082,7 +1088,7 @@ and ')', with the atoms separated by spaces. We can represent this syntax as a
 Scala `String`. Write a method `lispyTree` which constructs a "lispy string"
 from an `MTree`.
 
-Example:
+Exemple:
 
     scala> MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree
     res0: String = (a (b c))
@@ -1090,7 +1096,7 @@ Example:
 As a second, even more interesting, exercise try to write a method that takes a
 "lispy" string and turns it into a multiway tree.
 
-### P78 (medium)
+### P78 (moyen)
 
 A graph is defined as a set of nodes and a set of edges, where each edge is a
 pair of nodes.
@@ -1251,7 +1257,7 @@ human-friendly form:
 The notation for labeled graphs can also be used for so-called multi-graphs,
 where more than one edge (or arc) is allowed between two given nodes.
 
-### P79 (hard)
+### P79 (difficile)
 
 Write methods to generate the graph-term and adjacency-list forms from a
 `Graph`. Write another method to output the human-friendly form for a graph.
@@ -1260,7 +1266,7 @@ graphs from strings.
 
 Hint: You might need separate functions for labeled and unlabeled graphs.
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
     res0: (List[String], List[(String, String, Unit)]) = (List(d, k, h, c, f, g, b),List((h,g,()), (k,f,()), (f,b,()), (g,h,()), (f,c,()), (b,c,())))
@@ -1268,12 +1274,12 @@ Example:
     scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").toAdjacentForm
     res1: List[(String, List[(String, Int)])] = List((m,List((q,7))), (p,List((m,5), (q,9))), (k,List()), (q,List()))
 
-### P80 (medium)
+### P80 (moyen)
 
 Write a method named `findPaths` to find acyclic paths from one node to another
 in a graph. The method should return all paths.
 
-Example:
+Exemple:
 
     scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
     res0: List[List[String]] = List(List(p, q), List(p, m, q))
@@ -1281,17 +1287,17 @@ Example:
     scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "k")
     res1: List[List[String]] = List()
 
-### P81 (easy)
+### P81 (facile)
 
 Write a method named `findCycles` to find closed paths (cycles) starting at a
 given node in a graph. The method should return all cycles.
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
     res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
 
-### P82 (medium)
+### P82 (moyen)
 
 Write a method `spanningTrees` to construct all spanning trees of a given
 graph. With this method, find out how many spanning trees there are for the
@@ -1309,12 +1315,12 @@ Graph:
                     ('c', 'e'), ('d', 'e'), ('d', 'f'), ('d', 'g'),
                     ('e', 'h'), ('f', 'g'), ('g', 'h')))
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
     res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
 
-### P83 (medium)
+### P83 (moyen)
 
 Write a method `minimalSpanningTree` to construct the minimal spanning tree of
 a given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
@@ -1331,12 +1337,12 @@ Graph:
                 ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
                 ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
 
-Example:
+Exemple:
 
     scala> Graph.fromStringLabel("[a-b/1, b-c/2, a-c/3]").minimalSpanningTree
     res0: Graph[String,Int] = [a-b/1, b-c/2]
 
-### P84 (medium)
+### P84 (moyen)
 
 Two graphs G<sub>1</sub>(N<sub>1</sub>,E<sub>1</sub>) and
 G<sub>2</sub>(N<sub>2</sub>,E<sub>2</sub>) are isomorphic if there is a
@@ -1345,18 +1351,18 @@ N<sub>1</sub>, X and Y are adjacent if and only if f(X) and f(Y) are adjacent.
 
 Write a method that determines whether two graphs are isomorphic.
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[a-b]").isIsomorphicTo(Graph.fromString("[5-7]"))
     res0: Boolean = true
 
-### P85 (medium)
+### P85 (moyen)
 
 1. Write a method Node.degree that determines the degree of a given node.
 2. Write a method that lists all nodes of a graph sorted according to
    decreasing degree.
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodes("a").degree
     res0: Int = 3
@@ -1364,43 +1370,43 @@ Example:
     scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodesByDegree
     res1: List[Graph[String,Unit]#Node] = List(Node(a), Node(c), Node(b), Node(d))
 
-### P86 (medium)
+### P86 (moyen)
 
 Use Welsh-Powell's algorithm to paint the nodes of a graph in such a way that
 adjacent nodes have different colors. Make a method `colorNodes` that returns a
 list of tuples, each of which contains a node and an integer representing its
 color.
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
     res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
 
-### P87 (medium)
+### P87 (moyen)
 
 Write a method that generates a depth-first order graph traversal sequence. The
 starting point should be specified, and the output should be a list of nodes
 that are reachable from this starting point (in depth-first order).
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[a-b, b-c, e, a-c, a-d]").nodesByDepthFrom("d")
     res0: List[String] = List(c, b, a, d)
 
-### P88 (medium)
+### P88 (moyen)
 
-Write a function that splits a graph into its connected components.
+Écrivez une fonction qui sépare les composants connectés d’un graph.
 
-Example:
+Exemple:
 
     scala> Graph.fromString("[a-b, c]").splitGraph
     res0: List[Graph[String,Unit]] = List([a-b], [c])
 
-### P89 (medium)
+### P89 (moyen)
 
-Write a function that determines whether a given graph is bipartite.
+Écrivez une fonction qui détermine si un graph donné est biparti.
 
-Example:
+Exemple:
 
     scala> Digraph.fromString("[a>b, c>a, d>b]").isBipartite
     res0: Boolean = true
@@ -1414,7 +1420,7 @@ Example:
     scala> Graph.fromString("[a-b, b-c, d, e-f, f-g, g-e, h]").isBipartite
     res3: Boolean = false
 
-### P90 (medium)
+### P90 (moyen)
 
 The “eight queens problem” is a classical problem in computer science. The
 objective is to place eight queens on a chessboard so that no two queens are
@@ -1422,13 +1428,13 @@ attacking each other; i.e., no two queens are in the same row, the same column,
 or on the same diagonal.
 
 Hint: Represent the positions of the queens as a list of numbers `1..N`.
-Example: `List(4, 2, 7, 3, 6, 8, 5, 1)` means that the queen in the first
+Exemple: `List(4, 2, 7, 3, 6, 8, 5, 1)` means that the queen in the first
 column is in row `4`, the queen in the second column is in row `2`, etc. Use
 the [generate-and-test paradigm][gentest].
 
 [gentest]: https://www.siggraph.org/education/materials/HyperVis/concepts/gen_test.htm
 
-### P91 (medium)
+### P91 (moyen)
 
 Another famous problem is this one: How can a knight jump on an `NÃ-N`
 chessboard in such a way that it visits every square exactly once?
@@ -1447,7 +1453,7 @@ calculates the tours as needed?
 Can you find only "closed tours", where the knight can jump from its final
 position back to its starting position?
 
-### P92 (hard)
+### P92 (difficile)
 
 The Von Koch's conjecture puzzle goes like this: Given a tree with `N` nodes
 (and hence `N-1` edges), find a way to enumerate the nodes from `1` to `N` and,
@@ -1467,14 +1473,14 @@ the solution for the larger tree pictured below?
 
 ![](imgs/p92b.png)
 
-### P93 (hard)
+### P93 (difficile)
 
 Given a list of integer numbers, find a correct way of inserting arithmetic
-signs (operators) such that the result is a correct equation. Example: With the
+signs (operators) such that the result is a correct equation. Exemple: With the
 list of numbers `List(2,3,5,7,11)` we can form the equations `2-3+5+7 = 11` or
 `2 = (3*5+7)/11` (and ten others!).
 
-### P94 (hard) Generate K-regular simple graphs with N nodes.
+### P94 (difficile) Generate K-regular simple graphs with N nodes.
 
 In a K-regular graph all nodes have a degree of K; i.e. the number of edges
 incident in each node is K. How many (non-isomorphic!) 3-regular graphs with 6
@@ -1484,13 +1490,13 @@ nodes are there? See also a [table of results][p94-table] and a
 [p94-table]: http://aperiodic.net/phil/scala/s-99/p94.txt
 [p94-java]: https://prof.ti.bfh.ch/hew1/informatik3/prolog/p-99/GraphLayout/index.html
 
-### P95 (medium)
+### P95 (moyen)
 
 On financial documents, like checks, numbers must sometimes be written in full
-words. Example: 175 must be written as one-seven-five. Write a function
+words. Exemple: 175 must be written as one-seven-five. Write a function
 `fullWords(num: Int)` to print (non-negative) integer numbers in full words.
 
-### P96 (medium)
+### P96 (moyen)
 
 In a certain programming language (Ada) identifiers are defined by the syntax
 diagram (railroad chart) below. Transform the syntax diagram into a system
@@ -1500,11 +1506,11 @@ whether or not a given string is a legal identifier.
 
 ![](imgs/P96.png)
 
-### P97 (medium)
+### P97 (moyen)
 
-Sudoku puzzles go like this:
+Les puzzles de Sudoku ressemblent à la figure suivante :
 
-   Problem statement                 Solution
+   Problème                          Solution
 
     .  .  4 | 8  .  . | .  1  7      9  3  4 | 8  2  5 | 6  1  7
             |         |                      |         |
@@ -1531,7 +1537,7 @@ problem is to fill the missing spots with digits in such a way that every
 number between 1 and 9 appears exactly once in each row, in each column, and in
 each square.
 
-### P98 (hard)
+### P98 (difficile)
 
 Around 1994, a certain kind of puzzles was very popular in England. The "Sunday
 Telegraph" newspaper wrote:
@@ -1547,7 +1553,7 @@ bitmap is annotated with the respective lengths of its distinct strings of
 occupied cells. The person who solves the puzzle must complete the bitmap given
 only these lengths.
 
-          Problem statement:          Solution:
+          Problème:                   Solution:
 
           |_|_|_|_|_|_|_|_| 3         |_|X|X|X|_|_|_|_| 3
           |_|_|_|_|_|_|_|_| 2 1       |X|X|_|X|_|_|_|_| 2 1
@@ -1568,7 +1574,7 @@ the rows and columns, top-to-bottom and left-to-right, respectively. Published
 puzzles are larger than this example, e.g. 25Ã—20, and apparently always have
 unique solutions.
 
-### P99 (hard)
+### P99 (difficile)
 
 Given an empty (or almost empty) framework of a crossword puzzle and a set of
 words. The problem is to place the words into the framework.
