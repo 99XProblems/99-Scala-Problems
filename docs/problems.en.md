@@ -448,8 +448,9 @@ Calculate Euler's totient function phi(m) (improved).
 See problem P34 for the definition of Euler's totient function. If the list of
 the prime factors of a number m is known in the form of problem P36 then the
 function `phi(m>)` can be efficiently calculated as follows:
-Let `[[p1, m1], [p2, m2], [p3, m3], ...]` be the list of prime factors (and their multiplicities) of
-a given number `m`. Then `phi(m)` can be calculated with the following formula:
+Let `[[p1, m1], [p2, m2], [p3, m3], ...]` be the list of prime factors (and
+their multiplicities) of a given number `m`. Then `phi(m)` can be calculated
+with the following formula:
 
     phi(m) = (p1-1)*p1(m1-1) * (p2-1)*p2(m2-1) * (p3-1)*p3(m3-1) * ...
 
@@ -465,7 +466,8 @@ solutions of problems P34 and P37 to compare the algorithms. Try to calculate
 ### P39 (easy)
 
 A list of prime numbers.
-Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
+Given a range of integers by its lower and upper limit, construct a list of all
+prime numbers in that range.
 
 Example:
 
@@ -488,7 +490,8 @@ Example:
 
 ### P41 (medium)
 
-Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
+Given a range of integers by its lower and upper limit, print a list of all
+even numbers and their Goldbach composition.
 
 Example:
 
@@ -561,7 +564,8 @@ have to be left as a object method.
 
 ### P49 (medium)
 
-An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules. For example,
+An n-bit Gray code is a sequence of n-bit strings constructed according to
+certain rules. For example:
 
     n = 1: C(1) = ("0", "1").
     n = 2: C(2) = ("00", "01", "11", "10").
@@ -604,6 +608,8 @@ subtypes of whatever type it's created for. (This is important so that `End`
 can be a singleton object; as a singleton, it must have a specific type, so we
 give it type `Nothing`, which is a subtype of every other type.)
 
+![](imgs/p51.png)
+
 [tree1]: http://aperiodic.net/phil/scala/s-99/tree1.scala
 
     sealed abstract class Tree[+T]
@@ -628,83 +634,179 @@ A tree with only a root node would be `Node('a')` and an empty tree would be
 
 Write the previous code in a file and ensure it’s well typed.
 
-<!-------------------------------------------------------------------------------
-TODO
+### P52 (medium)
 
-P55 (medium) Construct completely balanced binary trees.
-In a completely balanced binary tree, the following property holds for every node: The number of nodes in its left subtree and the number of nodes in its right subtree are almost equal, which means their difference is not greater than one.
-Define an object named Tree. Write a function Tree.cBalanced to construct completely balanced binary trees for a given number of nodes. The function should generate all solutions. The function should take as parameters the number of nodes and a single value to put in all of them.
+In a completely balanced binary tree, the following property holds for every
+node: The number of nodes in its left subtree and the number of nodes in its
+right subtree are almost equal, which means their difference is not greater
+than one.
+Define an object named `Tree`. Write a function `Tree.cBalanced` to construct
+completely balanced binary trees for a given number of nodes. The function
+should generate all solutions. The function should take as parameters the
+number of nodes and a single value to put in all of them.
 
-scala> Tree.cBalanced(4, "x")
-res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x T(x . .) .)), ...
-P56 (medium) Symmetric binary trees.
-Let us call a binary tree symmetric if you can draw a vertical line through the root node and then the right subtree is the mirror image of the left subtree. Add an isSymmetric method to the Tree class to check whether a given binary tree is symmetric. Hint: Write an isMirrorOf method first to check whether one tree is the mirror image of another. We are only interested in the structure, not in the contents of the nodes.
-scala> Node('a', Node('b'), Node('c')).isSymmetric
-res0: Boolean = true
-P57 (medium) Binary search trees (dictionaries).
+Example:
+
+    scala> Tree.cBalanced(4, "x")
+    res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x T(x . .) .)), ...
+
+### P53 (medium)
+
+Let us call a binary tree symmetric if you can draw a vertical line through the
+root node and then the right subtree is the mirror image of the left subtree.
+Add an `isSymmetric` method to the `Tree` class of P52 to check whether a given
+binary tree is symmetric.
+
+Hint: Write an `isMirrorOf` method first to check whether one tree is the
+mirror image of another. We are only interested in the structure, not in the
+contents of the nodes.
+
+Example:
+
+    scala> Node('a', Node('b'), Node('c')).isSymmetric
+    res0: Boolean = true
+
+### P54 (medium)
+
 Write a function to add an element to a binary search tree.
-scala> End.addValue(2)
-res0: Node[Int] = T(2 . .)
 
-scala> res0.addValue(3)
-res1: Node[Int] = T(2 . T(3 . .))
+Example:
 
-scala> res1.addValue(0)
-res2: Node[Int] = T(2 T(0 . .) T(3 . .))
-Hint: The abstract definition of addValue in Tree should be def addValue[U >: T <% Ordered[U]](x: U): Tree[U]. The >: T is because addValue's parameters need to be contravariant in T. (Conceptually, we're adding nodes above existing nodes. In order for the subnodes to be of type T or any subtype, the upper nodes must be of type T or any supertype.) The <% Ordered[U] allows us to use the < operator on the values in the tree.
+    scala> End.addValue(2)
+    res0: Node[Int] = T(2 . .)
+
+    scala> res0.addValue(3)
+    res1: Node[Int] = T(2 . T(3 . .))
+
+    scala> res1.addValue(0)
+    res2: Node[Int] = T(2 T(0 . .) T(3 . .))
+
+Hint: The abstract definition of `addValue` in `Tree` should be
+`def addValue[U >: T <% Ordered[U]](x: U): Tree[U]`. The `>: T` is because
+`addValue`'s parameters need to be contravariant in `T`. (Conceptually, we're
+adding nodes above existing nodes. In order for the subnodes to be of type `T`
+or any subtype, the upper nodes must be of type `T` or any supertype.) The
+`<% Ordered[U]` allows us to use the `<` operator on the values in the tree.
 
 Use that function to construct a binary tree from a list of integers.
 
-scala> Tree.fromList(List(3, 2, 5, 7, 1))
-res3: Node[Int] = T(3 T(2 T(1 . .) .) T(5 . T(7 . .)))
-Finally, use that function to test your solution to P56.
+    scala> Tree.fromList(List(3, 2, 5, 7, 1))
+    res3: Node[Int] = T(3 T(2 T(1 . .) .) T(5 . T(7 . .)))
 
-scala> Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric
-res4: Boolean = true
+Finally, use that function to test your solution to P53.
 
-scala> Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric
-res5: Boolean = false
-P58 (medium) Generate-and-test paradigm.
-Apply the generate-and-test paradigm to construct all symmetric, completely balanced binary trees with a given number of nodes.
-scala> Tree.symmetricBalancedTrees(5, "x")
-res0: List[Node[String]] = List(T(x T(x . T(x . .)) T(x T(x . .) .)), T(x T(x T(x . .) .) T(x . T(x . .))))
-P59 (medium) Construct height-balanced binary trees.
-In a height-balanced binary tree, the following property holds for every node: The height of its left subtree and the height of its right subtree are almost equal, which means their difference is not greater than one.
-Write a method Tree.hbalTrees to construct height-balanced binary trees for a given height with a supplied value for the nodes. The function should generate all solutions.
+    scala> Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric
+    res4: Boolean = true
 
-scala> Tree.hbalTrees(3, "x")
-res0: List[Node[String]] = List(T(x T(x T(x . .) T(x . .)) T(x T(x . .) T(x . .))), T(x T(x T(x . .) T(x . .)) T(x T(x . .) .)), ...
-P60 (medium) Construct height-balanced binary trees with a given number of nodes.
-Consider a height-balanced binary tree of height H. What is the maximum number of nodes it can contain? Clearly, MaxN = 2H - 1. However, what is the minimum number MinN? This question is more difficult. Try to find a recursive statement and turn it into a function minHbalNodes that takes a height and returns MinN.
-scala> minHbalNodes(3)
-res0: Int = 4
-On the other hand, we might ask: what is the maximum height H a height-balanced binary tree with N nodes can have? Write a maxHbalHeight function.
+    scala> Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric
+    res5: Boolean = false
 
-scala> maxHbalHeight(4)
-res1: Int = 3
-Now, we can attack the main problem: construct all the height-balanced binary trees with a given nuber of nodes.
+### P55 (medium)
 
-scala> Tree.hbalTreesWithNodes(4, "x")
-res2: List[Node[String]] = List(T(x T(x T(x . .) .) T(x . .)), T(x T(x . T(x . .)) T(x . .)), ...
+Apply the generate-and-test paradigm to construct all symmetric, completely
+balanced binary trees with a given number of nodes.
+
+    scala> Tree.symmetricBalancedTrees(5, "x")
+    res0: List[Node[String]] = List(T(x T(x . T(x . .)) T(x T(x . .) .)), T(x T(x T(x . .) .) T(x . T(x . .))))
+
+### P56 (medium)
+
+In a height-balanced binary tree, the following property holds for every node:
+The height of its left subtree and the height of its right subtree are almost
+equal, which means their difference is not greater than one.
+Write a method `Tree.hbalTrees` to construct height-balanced binary trees for a
+given height with a supplied value for the nodes. The function should generate
+all solutions.
+
+Example:
+
+    scala> Tree.hbalTrees(3, "x")
+    res0: List[Node[String]] = List(T(x T(x T(x . .) T(x . .)) T(x T(x . .) T(x . .))), T(x T(x T(x . .) T(x . .)) T(x T(x . .) .)), ...
+
+### P57 (medium)
+
+Consider a height-balanced binary tree of height H. What is the maximum number
+of nodes it can contain? Clearly, MaxN = 2<sup>H</sup> - 1. However, what is
+the minimum number MinN? This question is more difficult. Try to find a
+recursive statement and turn it into a function minHbalNodes that takes a
+height and returns MinN.
+
+Example:
+
+    scala> minHbalNodes(3)
+    res0: Int = 4
+
+### P58 (medium)
+
+This is a follow-up to P57.
+
+On the other hand, we might ask: what is the maximum height H a height-balanced
+binary tree with N nodes can have? Write a maxHbalHeight function.
+
+Example:
+
+    scala> maxHbalHeight(4)
+    res1: Int = 3
+
+### P59 (medium)
+
+This is a follow-up to P58.
+
+Now, we can attack the main problem: construct all the height-balanced binary
+trees with a given nuber of nodes.
+
+Example:
+
+    scala> Tree.hbalTreesWithNodes(4, "x")
+    res2: List[Node[String]] = List(T(x T(x T(x . .) .) T(x . .)), T(x T(x . T(x . .)) T(x . .)), ...
+
 Find out how many height-balanced trees exist for N = 15.
 
-P61 (easy) Count the leaves of a binary tree.
-A leaf is a node with no successors. Write a method leafCount to count them.
-scala> Node('x', Node('x'), End).leafCount
-res0: Int = 1
-61A (easy) Collect the leaves of a binary tree in a list.
-A leaf is a node with no successors. Write a method leafList to collect them in a list.
-scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
-res0: List[Char] = List(b, d, e)
-P62 (easy) Collect the internal nodes of a binary tree in a list.
-An internal node of a binary tree has either one or two non-empty successors. Write a method internalList to collect them in a list.
-scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList
-res0: List[Char] = List(a, c)
-P62B (easy) Collect the nodes at a given level in a list.
-A node of a binary tree is at level N if the path from the root to the node has length N-1. The root node is at level 1. Write a method atLevel to collect all nodes at a given level in a list.
-scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
-res0: List[Char] = List(b, c)
-Using atLevel it is easy to construct a method levelOrder which creates the level-order sequence of the nodes. However, there are more efficient ways to do that.
+### P60 (easy)
+
+A leaf is a node with no successors. Write a method `leafCount` to count them.
+
+Example:
+
+    scala> Node('x', Node('x'), End).leafCount
+    res0: Int = 1
+
+### 61 (easy)
+
+A leaf is a node with no successors. Write a method `leafList` to collect them
+in a list.
+
+Example:
+
+    scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
+    res0: List[Char] = List(b, d, e)
+
+### P62 (easy)
+
+An internal node of a binary tree has either one or two non-empty successors.
+Write a method `internalList` to collect them in a list.
+
+Example:
+
+    scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList
+    res0: List[Char] = List(a, c)
+
+### P63 (easy)
+
+A node of a binary tree is at level N if the path from the root to the node has
+length N-1. The root node is at level 1. Write a method `atLevel` to collect
+all nodes at a given level in a list.
+
+Example:
+
+    scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
+    res0: List[Char] = List(b, c)
+
+Using `atLevel` it is easy to construct a method levelOrder which creates the
+level-order sequence of the nodes. However, there are more efficient ways to do
+that.
+
+<!-- TODO
 
 P63 (medium) Construct a complete binary tree.
 A complete binary tree with height H is defined as follows: The levels 1,2,3,...,H-1 contain the maximum number of nodes (i.e 2(i-1) at the level i, note that we start counting the levels from 1 at the root). In level H, which may contain less than the maximum possible number of nodes, all the nodes are "left-adjusted". This means that in a levelorder tree traversal all internal nodes come first, the leaves come second, and empty successors (the Ends which are not really nodes!) come last.
@@ -712,8 +814,8 @@ Particularly, complete binary trees are used as data structures (or addressing s
 
 We can assign an address number to each node in a complete binary tree by enumerating the nodes in levelorder, starting at the root with number 1. In doing so, we realize that for every node X with address A the following property holds: The address of X's left and right successors are 2*A and 2*A+1, respectively, supposed the successors do exist. This fact can be used to elegantly construct a complete binary tree structure. Write a method completeBinaryTree that takes as parameters the number of nodes and the value to put in each node.
 
-scala> Tree.completeBinaryTree(6, "x")
-res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
+    scala> Tree.completeBinaryTree(6, "x")
+    res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
 P64 (medium) Layout a binary tree (1).
 As a preparation for drawing a tree, a layout algorithm is required to determine the position of each node in a rectangular grid. Several layout methods are conceivable, one of them is shown in the illustration on the right.
 In this layout strategy, the position of a node v is obtained by the following two rules:
@@ -735,8 +837,8 @@ P65 (medium) Layout a binary tree (2).
 An alternative layout method is depicted in the illustration opposite. Find out the rules and write the corresponding method. Hint: On a given level, the horizontal distance between neighboring nodes is constant.
 Use the same conventions as in problem P64.
 
-scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
-res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
+    scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
+    res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
 The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')). Use it to check your code.
 
 P66 (hard) Layout a binary tree (3).
@@ -763,11 +865,11 @@ P68 (medium) Preorder and inorder sequences of binary trees.
 We consider binary trees with nodes that are identified by single lower-case letters, as in the example of problem P67.
 a) Write methods preorder and inorder that construct the preorder and inorder sequence of a given binary tree, respectively. The results should be lists, e.g. List('a','b','d','e','c','f','g') for the preorder sequence of the example in problem P67.
 
-scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder
-res0: List[Char] = List(a, b, d, e, c, f, g)
+    scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder
+    res0: List[Char] = List(a, b, d, e, c, f, g)
 
-scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
-res1: List[Char] = List(d, b, e, a, c, g, f)
+    scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
+    res1: List[Char] = List(d, b, e, a, c, g, f)
 b) If both the preorder sequence and the inorder sequence of the nodes of a binary tree are given, then the tree is determined unambiguously. Write a method preInTree that does the job.
 
 scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
@@ -779,8 +881,9 @@ We consider again binary trees with nodes that are identified by single lower-ca
 scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring
 res0: String = abd..e..c.fg...
 
-scala> Tree.fromDotstring("abd..e..c.fg...")
-res1: Node[Char] = a(b(d,e),c(,f(g,)))
+    scala> Tree.fromDotstring("abd..e..c.fg...")
+    res1: Node[Char] = a(b(d,e),c(,f(g,)))
+
 The file containing the full class definitions for this section is tree.scala.
 
 Multiway Trees
@@ -789,18 +892,19 @@ A multiway tree is composed of a root element and a (possibly empty) set of succ
 
 The code to represent these is somewhat simpler than the code for binary trees, partly because we don't separate classes for nodes and terminators, and partly because we don't need the restriction that the value type be ordered.
 
-case class MTree[+T](value: T, children: List[MTree[T]]) {
-  def this(value: T) = this(value, List())
-  override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
-}
+    case class MTree[+T](value: T, children: List[MTree[T]]) {
+    def this(value: T) = this(value, List())
+    override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
+    }
 
-object MTree {
-  def apply[T](value: T) = new MTree(value, List())
-  def apply[T](value: T, children: List[MTree[T]]) = new MTree(value, children)
-}
+    object MTree {
+    def apply[T](value: T) = new MTree(value, List())
+    def apply[T](value: T, children: List[MTree[T]]) = new MTree(value, children)
+    }
+
 The example tree is, thus:
 
-MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e')))))
+    MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e')))))
 The starting code skeleton for this section is mtree1.scala.
 
 P70B Omitted; we can only create well-formed trees.
