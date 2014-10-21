@@ -18,8 +18,8 @@ Translations:
 
 [Fork this repo][fork] then get your local version:
 
-    git clone https://github.com/<your-username>/99-Scala-Problems.git
-    cd 99-Scala-Problems
+    $ git clone https://github.com/<your-username>/99-Scala-Problems.git
+    $ cd 99-Scala-Problems
 
 [fork]: https://github.com/99XProblems/99-Scala-Problems/fork
 
