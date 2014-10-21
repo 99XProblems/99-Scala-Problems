@@ -2,9 +2,6 @@
 
 Cette liste de tests est une version modifiée de [celle de Phil Gold][pgold].
 
-Il reste un peu moins de 25 problèmes non traduits, ceux-ci sont préfixés par
-<i>[à traduire]</i>.
-
 [pgold]: http://aperiodic.net/phil/scala/s-99/
 
 ## Écrire une solution
@@ -894,21 +891,21 @@ Exemple :
     scala> Tree.completeBinaryTree(6, "x")
     res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
 
-### [à traduire] P65 (moyen)
+### P65 (moyen)
 
-As a preparation for drawing a tree, a layout algorithm is required to
-determine the position of each node in a rectangular grid. Several layout
-methods are conceivable, one of them is shown in the illustration below. In
-this layout strategy, the position of a node v is obtained by the following two
-rules:
+Afin de dessiner un arbre, un algorithme de placement est requis pour
+pouvoir déterminer la position de chaque nœud sur une grille rectangulaire. De
+nombreuses méthodes sont envisageables, l’une d’entre elles est visible sur
+l’image ci-dessous. Dans cette stratégie de placement, la position d’un nœud v
+est obtenue par les deux règles suivantes :
 
-* x(v) is equal to the position of the node v in the inorder sequence
-* y(v) is equal to the depth of the node v in the tree
+* x(v) est égal à la position du nœud v dans la séquence <i>inorder</i>
+* y(v) est égal à la profondeur du nœud v dans l’arbre
 
 ![](imgs/p65.png)
 
-In order to store the position of the nodes, we add a new class with the
-additional information.
+Nous ajoutons une nouvelle classe avec plus d’informations pour stocker la
+position des nœuds.
 
     case class PositionedNode[+T](override val value: T,
         override val left: Tree[T], override val right: Tree[T],
@@ -918,21 +915,21 @@ additional information.
             "(" + value.toString + " " + left.toString + " " + right.toString + ")"
     }
 
-Write a method `layoutBinaryTree` that turns a tree of normal `Node`s into a
-tree of `PositionedNode`s.
+Écrivez une méthode `layoutBinaryTree` qui transforme un arbre composé
+de`Node`s normaux en un arbre de `PositionedNode`s.
 
     scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree
     res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
 
-The pictured tree may be constructed with:
+L’arbre de l’image peut être construit avec :
 
     Tree.fromList(List('n','k','m','c','a','h','g','e','u','p','s','q'))
 
-Use it to check your code.
+Utilisez-le pour tester votre code.
 
 ### P66 (moyen)
 
-Une mise en forme alternative est montrée dans l’illustration ci-dessous.
+Un placement alternatif est montré dans l’illustration ci-dessous.
 Trouvez les règles et écrivez la méthode correspondante. Astuce : à un niveau
 donné, la distance horizontale entre les nœuds voisins est constante.
 
@@ -951,16 +948,17 @@ L’arbre de l’image peut être construit avec :
 
 Utilisez-le pour vérifier votre code.
 
-### [à traduire] P67 (difficile)
+### P67 (difficile)
 
-Yet another layout strategy is shown in the illustration below. The method
-yields a very compact layout while maintaining a certain symmetry in every
-node. Find out the rules and write the corresponding method. Hint: Consider the
-horizontal distance between a node and its successor nodes. How tight can you
-pack together two subtrees to construct the combined binary tree?
+Une autre stratégie de placement est montrée dans l’image ci-dessous. La
+méthode construit un placement très compacte tout en maintenant une certaine
+symétrie pour chaque nœud. Trouvez les règles et écrivez la méthode
+correspondante. Astuce : Regardez la distance horizontale entre un nœuds et ses
+nœuds enfants. Comment pouvez-vous combiner deux sous-arbres ensembles pour
+former l’arbre binaire résultant ?
 
-Use the same conventions as in problem P65 and P66. Note: This is a difficult
-problem. Don't give up too early!
+Utilisez les mêmes conventions que pour les problèmes P65 et P66. Note : c’est
+un problème difficile, n’abandonnez pas trop tôt !
 
 Exemple :
 
@@ -971,23 +969,23 @@ Exemple :
 
 Which layout do you like most?
 
-### [à traduire] P68 (moyen)
+### P68 (moyen)
 
-Somebody represents binary trees as strings of the following type (see example
-below):
+On peut représenter les arbres binaires par des chaînes de caractères du type
+suivant (voir example ci-dessous) :
 
     a(b(d,e),c(,f(g,)))
 
 ![](imgs/p68.png)
 
-Write a method which generates this string representation, if the tree is given
-as usual (in `Node`s and `End`s). Use that method for the `Tree` class's and
-subclass's `toString` methods. Then write a method (on the `Tree` object) which
-does this inverse; i.e. given the string representation, construct the tree in
-the usual form.
+Écrivez une méthode qui génère cette représentation textuelle, si l’arbre est
+donné comme d’habitude (en `Node`s et `End`s). Utilisez cette méthode pour la
+méthode `toString` de la classe `Tree` et de ses sous-classes. Écrivez ensuite
+une méthode (sur l’objet `Tree`) qui fait l’inverse : elle construit un arbre à
+partir de sa représentation textuelle.
 
-For simplicity, suppose the information in the nodes is a single letter and
-there are no spaces in the string.
+Pour faire simple, supposez que chaque nœud ne contient qu’une seule lettre et
+qu’il n’y a pas d’espaces dans la chaîne.
 
 Exemple :
 
@@ -997,15 +995,15 @@ Exemple :
     scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
     res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
-### [à traduire] P69 (moyen)
+### P69 (moyen)
 
-We consider binary trees with nodes that are identified by single lower-case
-letters, as in the example of problem P68.
+On utilise ici des arbres binaires avec nœuds identifiés par une seule lettre
+minuscule, comme dans l’exemple du problème P68.
 
-Write methods `preorder` and `inorder` that construct the preorder and inorder
-sequence of a given binary tree, respectively. The results should be lists,
-e.g. `List('a','b','d','e','c','f','g')` for the preorder sequence of the
-example in problem P68.
+Écrivez les méthodes `preorder` et `inorder` qui construisent respectivement
+les séquences préfixe et postfixe. Les résultats sont des listes, comme
+`List('a','b','d','e','c','f','g')` pour la séquence préfixe de l’exemple du
+problème P68.
 
 Exemple :
 
@@ -1015,32 +1013,33 @@ Exemple :
     scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
     res1: List[Char] = List(d, b, e, a, c, g, f)
 
-### [à traduire] P70 (moyen)
+### P70 (moyen)
 
-This is a follow-up to P69.
+Ce problème est la suite du problème P69.
 
-If both the preorder sequence and the inorder sequence of the nodes of a binary
-tree are given, then the tree is determined unambiguously. Write a method
-`preInTree` that does the job.
+Si les séquences préfixe et postfixe de nœuds d’un arbre binaire sont toutes
+les deux données, alors l’arbre peut être déterminé sans ambiguité. Écrivez une
+méthode `preInTree` qui fait le travail pour vous.
 
 Exemple :
 
     scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
     res2: Node[Char] = a(b(d,e),c(,f(g,)))
 
-What happens if the same character appears in more than one node? Try, for
-instance, `Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a'))`.
+Que se passe-t-il si la même lettre apparaît dans plus d’un seul nœud ?
+Essayez, par exemple,
+`Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a'))`.
 
-### [à traduire] P71 (moyen)
+### P71 (moyen)
 
-We consider again binary trees with nodes that are identified by single
-lower-case letters, as in the example of problem P68. Such a tree can be
-represented by the preorder sequence of its nodes in which dots (`.`) are
-inserted where an empty subtree (`End`) is encountered during the tree
-traversal. For example, the tree shown in problem P68 is represented as
-`"abd..e..c.fg..."`. First, try to establish a syntax (BNF or syntax diagrams)
-and then write two methods, `toDotstring` and `fromDotstring`, which do the
-conversion in both directions.
+On utilise encore ici les arbres binaires dont les nœuds sont identifiés par
+une lettre minuscule, comme dans l’exemple du problème P68. Un tel arbre peut
+être représenté par la séquence préfixe de ses nœuds dans laquelle les points
+(`.`) sont insérés quand on rencontre un sous-arbre vide (`End`) durant le
+parcours. Par exemple, l’arbre du problème P68 est représenté par
+`"abd..e..c.fg..."`. Essayez d’abord d’établir une syntaxe (BNF ou diagrammes
+de syntaxe) puis écrivez deux méthodes, `toDotstring` et `fromDotstring` qui
+font les conversions dans chaque sens.
 
 Exemple :
 
@@ -1050,15 +1049,16 @@ Exemple :
     scala> Tree.fromDotstring("abd..e..c.fg...")
     res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
-### [à traduire] P72 (facile)
+### P72 (facile)
 
-A multiway tree is composed of a root element and a (possibly empty) set of
-successors which are multiway trees themselves. A multiway tree is never empty.
-The set of successor trees is sometimes called a forest.
+Un arbre (non-binaire) est composé d’un élément racine et d’un ensemble
+(possiblement vide) d’enfants qui sont eux-même des arbres. Un arbre n’est
+jamais vide. L’ensemble des enfants est parfois appelé une forêt.
 
-The code to represent these is somewhat simpler than the code for binary trees,
-partly because we don't separate classes for nodes and terminators, and partly
-because we don't need the restriction that the value type be ordered.
+Le code utilisé pour représenter ces arbres est plus simple que celui des
+arbres binaires, en partie parce que nous n’avons pas de classes séparées pour
+les nœuds et les terminaisons, et en partie parce que nous n’avons pas besoin
+de restreindre le type de valeur, qui n’est pas nécessairement ordonnable ici.
 
     case class MTree[+T](value: T, children: List[MTree[T]]) {
         def this(value: T) = this(value, List())
@@ -1070,11 +1070,11 @@ because we don't need the restriction that the value type be ordered.
         def apply[T](value: T, children: List[MTree[T]]) = new MTree(value, children)
     }
 
-The example tree is, thus:
+L’arbre d’exemple est donc :
 
     MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e')))))
 
-Write this initial code in a file and ensure it’s well typed.
+Écrivez ce code initial dans un fichier et assurez-vous qu’il est bien typé.
 
 ### P73 (facile)
 
@@ -1085,87 +1085,89 @@ Exemple :
     scala> MTree('a', List(MTree('f'))).nodeCount
     res0: Int = 2
 
-### [à traduire] P74 (moyen)
+### P74 (moyen)
 
-We suppose that the nodes of a multiway tree contain single characters. In the
-depth-first order sequence of its nodes, a special character `^` has been
-inserted whenever, during the tree traversal, the move is a backtrack to the
-previous level.
-By this rule, the tree in the figure below is represented as:
+On suppose que chacun des nœuds d’un arbre ne contient qu’une lettre. On peut
+représenter un arbre par la séquence des nœuds traversés lors d’un parcours en
+profondeur, en utilisant un caractère spécial (`^`) pour indiquer quand on
+remonte dans l’arborescence.
+Avec cette règle, l’arbre de l’image ci-dessous est représenté par :
 
     afg^^c^bd^e^^^
 
 ![](imgs/p74.png)
 
-Define the syntax of the string and write a function `string2MTree` to
-construct an `MTree` from a `String`. Make the function an implicit conversion
-from `String`. Write the reverse function, and make it the `toString` method of
-`MTree`.
+Définissez la syntaxe de la chaîne de caractères et écrivez une fonction
+`string2MTree` pour construire un `MTree` depuis une `String`. Écrivez-la de
+façon à ce qu’elle soit une conversion implicite depuis `String`. Écrivez la
+fonction inverse dans une méthode `toString` de la classe `MTree`.
 
 Exemple :
 
     scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
     res0: String = afg^^c^bd^e^^^
 
-### [à traduire] P75 (facile)
+### P75 (facile)
 
-We define the internal path length of a multiway tree as the total sum of the
-path lengths from the root to all nodes of the tree. By this definition, the
-tree in the figure of problem P74 has an internal path length of 9. Write a
-method `internalPathLength` to return that sum.
+On défini la longueur du chemin interne d’un arbre comme la somme totale des
+longueurs des chemins depuis la racine jusqu’à tous les nœuds de l’arbre. Avec
+cette définition, l’arbre de la figure du problème P74 a une longueur de chemin
+interne de 9. Écrivez une méthode `internalPathLength` pour retourner cette
+somme.
 
 Exemple :
 
     scala> "afg^^c^bd^e^^^".internalPathLength
     res0: Int = 9
 
-### [à traduire] P76 (facile)
+### P76 (facile)
 
-Write a method `postorder` which constructs the postorder sequence of the nodes
-of a multiway tree. The result should be a List.
+Écrivez une méthode `postorder` qui construit la séquence préfixe des nœuds
+d’un arbre. Le résultat doit être une liste.
 
 Exemple :
 
     scala> "afg^^c^bd^e^^^".postorder
     res0: List[Char] = List(g, f, c, d, e, b, a)
 
-### [à traduire] P77 (moyen)
+### P77 (moyen)
 
-There is a particular notation for multiway trees in Lisp. Lisp is a prominent
-functional programming language. In Lisp almost everything is a list.
-Our example tree would be represented in Lisp as `(a (f g) c (b d e))`. The
-following pictures give some more examples.
+Lisp propose une notation particulière pour les arbres. C’est un langage de
+programmation fonctionnelle majeur. En Lisp, presque tout est une list. Notre
+arbre d’exemple serait représenté comme `(a (f g) c (b d e))`. Les images
+ci-dessous montrent plus d’exemples.
 
 ![](imgs/p77.png)
 
-Note that in the "lispy" notation a node with successors (children) in the tree
-is always the first element in a list, followed by its children. The "lispy"
-representation of a multiway tree is a sequence of atoms and parentheses '('
-and ')', with the atoms separated by spaces. We can represent this syntax as a
-Scala `String`. Write a method `lispyTree` which constructs a "lispy string"
-from an `MTree`.
+Notez que dans la notation « lispée » un nœud et ses enfants dans l’arbre est
+toujours le premier élément d’une liste, suivi par ses enfants. La
+représentation « lispée » d’un arbre est une séquence d’atomes et parenthèses
+'(' et ')', avec les atomes séparés par des espaces. Nous pouvons représenter
+cette syntaxe avec la `String` de Scala. Écrivez une méthode `lispyTree` qui
+construit une `String` « lispée » à partir d’un `MTree`.
 
 Exemple :
 
     scala> MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree
     res0: String = (a (b c))
 
-As a second, even more interesting, exercise try to write a method that takes a
-"lispy" string and turns it into a multiway tree.
+Un second exercice, plus intéressant, consiste à écrire une méthode qui prend
+une chaîne « lispée » et retourne l’arbre correspondant.
 
-### [à traduire] P78 (moyen)
+### P78 (moyen)
 
-A graph is defined as a set of nodes and a set of edges, where each edge is a
-pair of nodes.
+Un graphe est défini comme un ensemble de nœuds et un ensemble d’arrêtes (ou
+liens), où chaque arrête est une paire de nœuds.
 
-The class to represent a graph is mutable, which isn't in keeping with pure
-functional programming, but a pure functional data structure would make things
-much, much more complicated.
+La classe qui représente un graph est mutable, ce qui n’est pas de la bonne
+programmation fonctionnelle, mais une structure de données purement
+fonctionnelle rendrait les choses vraiment, vraiment plus compliquées.
 
-Our `Graphs` use an incidence list internally. Each has a list of nodes and a
-list of edges. Each node also has a list of edges that connect it to other
-nodes. In a directed graph, nodes that are the target of arcs do not have
-references to those arcs in their adjacency list.
+Nos `Graph`s utilisent une liste d’adjacences en interne. Chacun d’entre eux a
+une liste de nœuds et une liste d’arrêtes. Chaque nœud a aussi une liste
+d’arrête qui le connecte à d’autres nœuds. Dans un graphe dirigé, les nœuds
+qui sont les cibles d’arrêtes n’ont pas de références à ces arrêtes dans leur
+liste d’adjacence.
 
 ![](imgs/p78a.png)
 
@@ -1181,8 +1183,8 @@ references to those arcs in their adjacency list.
       var nodes: Map[T, Node] = Map()
       var edges: List[Edge] = Nil
 
-      // If the edge E connects N to another node, returns the other node,
-      // otherwise returns None.
+      // Si l’arrête E connecte N à un autre nœud, retourne l’autre nœud,
+      // retourne None sinon.
       def edgeTarget(e: Edge, n: Node): Option[Node]
 
       override def equals(o: Any) = o match {
@@ -1234,95 +1236,99 @@ references to those arcs in their adjacency list.
       }
     }
 
-The full initial Graph code, which also includes objects for creating graphs,
-is in [graph1.scala][graph1].
+Le code initial complet, qui inclus des objets pour créer des graphes, est dans
+[graph1.scala][graph1].
 
 [graph1]: http://aperiodic.net/phil/scala/s-99/graph1.scala
 
-There are a few ways to create a graph from primitives. The <em>graph-term
-form</em> lists the nodes and edges separately:
+Il y a plusieurs façons de créer un graphe à partir de primitives. La forme
+<em>graph-term</em> liste les nœuds et les arrêtes séparément :
 
     Graph.term(List('b', 'c', 'd', 'f', 'g', 'h', 'k'),
             List(('b', 'c'), ('b', 'f'), ('c', 'f'), ('f', 'k'), ('g', 'h')))
 
-The <em>adjacency-list</em> form associates each node with its adjacent nodes.
-In an undirected graph, care must be taken to ensure that all links are
-symmetric — if b is adjacent to c, c must also be adjacent to b.
+La forme <em>adjacency-list</em> associe chaque nœud avec ses nœuds adjacents.
+Dans un graphe non dirigé, il faut faire attention à ce que chaque arrête soit
+symétrique : si b est adjacent à c, c doit aussi être adjacent à b.
 
     Graph.adjacent(List(('b', List('c', 'f')), ('c', List('b', 'f')), ('d', Nil),
                         ('f', List('b', 'c', 'k')), ('g', List('h')), ('h', List('g')),
                         ('k', List('f'))))
 
-The representations we introduced so far are bound to our implementation and
-therefore well suited for automated processing, but their syntax is not very
-user-friendly. Typing the terms by hand is cumbersome and error-prone. We can
-define a more compact and "human-friendly" notation as follows: A graph is
-represented by a string of terms of the type X or Y-Z separated by commas. The
-standalone terms stand for isolated nodes, the Y-Z terms describe edges. If an
-X appears as an endpoint of an edge, it is automatically defined as a node. Our
-example could be written as:
+Les représentations introduites jusqu’ici dépendent de notre implémentation et
+ne sont donc pas adaptées pour du traitement automatisé, mais leur syntaxe
+n’est pas très lisible. Écrire les termes à la main est compliqué et il est
+facile de faire des erreurs. Nous pouvous définir une notation plus lisible et
+compacte de la façon suivante : un graphe est représenté comme une chaîne de
+termes du type X ou Y-Z séparés par des virgules. Les termes seuls représentent
+les nœuds isolés, et les termes Y-Z représentent les arrêtes. Si un X apparaît
+comme extrémité d’une arrête, il est automatiquement défini comme nœud. Notre
+exemple pourrait être écrit de la façon suivante :
 
     [b-c, f-c, g-h, d, f-b, k-f, h-g]
 
-We call this the <em>human-friendly form</em>. As the example shows, the list
-does not have to be sorted and may even contain the same edge multiple times.
-Notice the isolated node d.
+Nous appelons cette représentation la forme <em>human-friendly</em>. Comme le
+montre l’exemple, la liste n’a pas besoin d’être triée et peut même contenir la
+même arrête plusieurs fois. Notez le d isolé.
 
 ![](imgs/p78b.png)
 
-When the edges of a graph are directed, we call them arcs. These are
-represented by ordered pairs. Such a graph is called directed graph. To
-represent a directed graph, the forms discussed above are slightly modified.
-The example graph opposite is represented as follows:
+Quand les arrêtes d’un graphe sont dirigées, nous les appelons « arcs. » Ils
+sont représentés par des paires ordonnées. Un tel graphe est appelé « graphe
+dirigé » (digraphe). Pour le représenter, les formes présentées précédemment
+sont légèrement modifiées.
+Le graphe d’exemple ci-dessus est représenté des façons suivantes :
 
-graph-term form:
+forme graph-term:
 
     Digraph.term(List('r', 's', 't', 'u', 'v'),
                 List(('s', 'r'), ('s', 'u'), ('u', 'r'), ('u', 's'), ('v', 'u')))
 
-adjacency-list form:
+forme adjacency-list:
 
     Digraph.adjacent(List(('r', Nil), ('s', List('r', 'u')), ('t', Nil),
                         ('u', List('r', 's')), ('v', List('u'))))
 
-(Note that the adjacency-list form is the same for graphs and digraphs.)
+(Notez que la forme adjancy-list est la même pour les graphes et digraphes.)
 
-human-friendly form:
+forme human-friendly:
 
     [s>r, t, u>r, s>u, u>s, v>u]
 
-Finally, graphs and digraphs may have additional information attached to nodes
-and edges (arcs). For the nodes, this is no problem, as we can put any type
-into them. On the other hand, for edges we have to extend our notation. Graphs
-with additional information attached to edges are called labeled graphs.
+Enfin, les graphes et les digraphes peuvent avoir plus d’informations associées
+aux nœuds et arrêtes (arcs). Pour les nœuds, il n’y a pas de problème puisque
+nous utilisons n’importe quel type pour les représentés. Nous devons étendre
+notre notation pour les arrêtes. Les graphes avec des informations
+additionnelles associées aux arrêtes sont appelés « graphes libellés. »
 
-graph-term form:
+forme graph-term:
 
     Digraph.termLabel(List('k', 'm', 'p', 'q'),
                     List(('m', 'q', 7), ('p', 'm', 5), ('p', 'q', 9)))
 
-adjacency-list form:
+forme adjacency-list:
 
     Digraph.adjacentLabel(
     List(('k', Nil), ('m', List(('q', 7))), ('p', List(('m', 5), ('q', 9))),
         ('q', Nil)))
 
-human-friendly form:
+forme human-friendly:
 
     [p>q/9, m>q/7, k, p>m/5]
 
-The notation for labeled graphs can also be used for so-called multi-graphs,
-where more than one edge (or arc) is allowed between two given nodes.
+La notation pour les graphes libellés peut aussi être utilisée pour les
+« multi-graphes, » où plus d’une seule arrête (ou arc) est autorisée entre deux
+nœuds donnés.
 
-### [à traduire] P79 (difficile)
+### P79 (difficile)
 
-Write methods to generate the graph-term and adjacency-list forms from a
-`Graph`. Write another method to output the human-friendly form for a graph.
-Make it the `toString` method for `Graph`. Write more functions to create
-graphs from strings.
+Écrivez des méthodes pour générer les formes graph-term et adjancy-list depuis
+un `Graph`. Écrivez une autre méthode pour afficher la forme human-friendly
+d’un graphe. Utilisez-là pour la méthode `toString` de `Graph`. Écrivez
+d’autres fonctions pour créer des graphes à partir de chaînes de caractères.
 
 Astuce : Vous aurez peut-être besoin d’utiliser des fonctions séparées pour les
-graphes labellés et non-labellés.
+graphes libellés et non-labellés.
 
 Exemple :
 
@@ -1356,18 +1362,19 @@ Exemple :
     scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
     res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
 
-### [à traduire] P82 (moyen)
+### P82 (moyen)
 
-Write a method `spanningTrees` to construct all spanning trees of a given
-graph. With this method, find out how many spanning trees there are for the
-graph depicted to the right. The data of this example graph can be found below.
-When you have a correct solution for the `spanningTrees` method, use it to
-define two other useful methods: `isTree` and `isConnected`. Both are
-five-minute tasks!
+Écrivez une méthode `spanningTrees` pour construire tous les arbres couvrant
+d’un graphe donné. Avec cette méthode, trouvez combien d’arbres couvrant sont
+possibles pour le graphe ci-dessous. Les données pour le graphe d’exemple sont
+données ci-dessous. Quand vous aurez la bonne solution pour la méthode
+`spanningTrees`, utilisez-la pour définir deux autres méthodes utiles :
+`isTree` (teste si un graphe est un arbre) et `isConnected`. Toutes les deux
+peuvent être écrites en 5 minutes !
 
 ![](imgs/p82.png)
 
-Graph:
+Graphe:
 
     Graph.term(List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
             List(('a', 'b'), ('a', 'd'), ('b', 'c'), ('b', 'e'),
@@ -1379,22 +1386,22 @@ Exemple :
     scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
     res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
 
-### [à traduire] P83 (moyen)
+### P83 (moyen)
 
-Write a method `minimalSpanningTree` to construct the minimal spanning tree of
-a given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
-solution of P83 does the trick. The data of the example graph to the right can
-be found below.
+Écrivez une méthode `minimalSpanningTree` pour construire l’arbre couvrant
+minimal d’un graphe libellé donné. Astuce : utilisez l’algorithme de Prim. Une
+petite modification de la solution du problème P82 permet d’écrire celle-ci.
+Les données du graphe d’exemple sont données ci-dessous :
 
 ![](imgs/p83.png)
 
-Graph:
+Graphe:
 
     Graph.termLabel(
-    List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
-        List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
-                ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
-                ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
+        List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
+            List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
+                    ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
+                    ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
 
 Exemple :
 
@@ -1404,11 +1411,11 @@ Exemple :
 ### P84 (moyen)
 
 Deux graphes G<sub>1</sub>(N<sub>1</sub>,E<sub>1</sub>) et
-G<sub>2</sub>(N<sub>2</sub>,E<sub>2</sub>) sont isomorphiques si il y a une
+G<sub>2</sub>(N<sub>2</sub>,E<sub>2</sub>) sont isomorphes si il y a une
 bijection f: N<sub>1</sub> â†’ N<sub>2</sub> telle que pour n’importe quels
 nœuds X, Y de N<sub>1</sub>, X et Y sont adjacents si et seulement si f(X) et f(Y) sont adjacents.
 
-Écrivez une méthode qui détermine si deux graphes sont isomorphiques.
+Écrivez une méthode qui détermine si deux graphes sont isomorphies.
 
 Exemple :
 
@@ -1441,11 +1448,12 @@ Exemple :
     scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
     res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
 
-### [à traduire] P87 (moyen)
+### P87 (moyen)
 
-Write a method that generates a depth-first order graph traversal sequence. The
-starting point should be specified, and the output should be a list of nodes
-that are reachable from this starting point (in depth-first order).
+Écrivez une méthode qui génère une séquence de parcours en profondeur d’un
+graphe. Le point de départ doit être donné, et la valeur de retour doit être
+une liste de nœuds accessibles depuis ce point de départ (dans l’ordre du
+parcours en profondeur).
 
 Exemple :
 
@@ -1493,42 +1501,42 @@ sur la ligne 2, etc. Utilisez le paradigme « [générez-et-testez][gentest]. »
 
 [gentest]: https://www.siggraph.org/education/materials/HyperVis/concepts/gen_test.htm
 
-### [à traduire] P91 (moyen)
+### P91 (moyen)
 
-Another famous problem is this one: How can a knight jump on an `NÃ-N`
-chessboard in such a way that it visits every square exactly once?
+Un autre problème célèbre est le suivant : comment un cavalier peut-il sauter
+sur un échiquier `N×N` de façon à visiter chaque case exactement une seule fois.
 
-Hints: Represent the squares by pairs of their coordinates of the form `(X,
-Y)`, where both `X` and `Y` are integers between `1` and `N`. (Alternately,
-define a `Point` class for the same purpose.) Write a function
-`jumps(N, (X, Y))` to list the squares that a knight can jump to from `(X, Y)`
-on a `NÃ-N` chessboard. And finally, represent the solution of our problem as a
-list of knight positions (the knight's tour).
+Astuces : représentez les cases par des paires de leurs coordonnées de la forme
+`(X, Y)` où `X` et `Y` sont des entiers entre `1` et `N` (ou définissez une
+classe `Point`). Écrivez une fonction `jumps(N, (X, Y))` pour lister les cases
+où un cavalier peut sauter depuis `(X, Y)` sur un échiquier `N×N`. Enfin,
+représentez la solution à notre problème comme une liste de positions du
+cavalier (le parcours du cavalier).
 
-It might be nice to find more than one tour, but a computer will take a long
-time trying to find them all at once. Can you make a lazy list that only
-calculates the tours as needed?
+Il peut être intéressant de trouver plus d’un parcours, mais un ordinateur va
+mettre beaucoup de temps pour tous les trouver d’un coup. Pouvez-vous faire une
+liste paresseuse qui ne va calculer les parcours qu’au moment nécessaire ?
 
-Can you find only "closed tours", where the knight can jump from its final
-position back to its starting position?
+Pouvez-vous aussi trouver uniquement les « parcours fermés, » où le cavalier
+peut sauter de sa dernière position à sa première ?
 
-### [à traduire] P92 (difficile)
+### P92 (difficile)
 
-The Von Koch's conjecture puzzle goes like this: Given a tree with `N` nodes
-(and hence `N-1` edges), find a way to enumerate the nodes from `1` to `N` and,
-accordingly, the edges from `1` to `N-1` in such a way, that for each edge `K`
-the difference of its node numbers is equal to `K`. The conjecture is that this
-is always possible.
+Le puzzle de la conjecture de Von Koch est le suivant : Soit un arbre avec `N`
+nœuds (et donc `N-1` arrêtes), trouvez un moyen d’énumérer les nœuds de `1` à
+`N`, et, de la même façon, les arrêtes de `1` à `N-1`, de telle façon que pour
+chaque arrête `K`, la différence entre les nombres de ses nœuds est égale à
+`K`. La conjecture dit que c’est toujours possible.
 
 ![](imgs/p92a.png)
 
-For small trees the problem is easy to solve by hand. However, for larger
-trees, and 14 is already very large, it is extremely difficult to find a
-solution. And remember, we don't know for sure whether there is always a
-solution!
+Pour les petits arbres le problème est facile à résoudre à la main. Cependant,
+pour les grands arbres, et 14 est déjà très grand, il est extrêmement difficile
+de trouver la solution. Et rappelez-vous, nous ne sommes même pas sûrs qu’il y
+a toujours une solution.
 
-Write a function that calculates a numbering scheme for a given tree. What is
-the solution for the larger tree pictured below?
+Écrivez une fonction qui calcule un système de numérotation pour un arbre
+donné. Quelle est la solution pour l’arbre représenté ci-dessous ?
 
 ![](imgs/p92b.png)
 
@@ -1540,12 +1548,13 @@ correcte. Par exemple, avec la liste de nombres `List(2,3,5,7,11)`, nous
 pouvons former les équations `2-3+5+7 = 11` ou `2 = (3*5+7)/11` (et dix autres
 !).
 
-### [à traduire] P94 (difficile)
+### P94 (difficile)
 
-In a K-regular graph all nodes have a degree of K; i.e. the number of edges
-incident in each node is K. How many (non-isomorphic!) 3-regular graphs with 6
-nodes are there? See also a [table of results][p94-table] and a
-[Java applet][p94-java] that can represent graphs geometrically.
+Dans un graphe K-régulier, tous les nœuds ont un degré K, c’est-à-dire que le
+nombre d’arrêtes partant d’un nœud sont au nombre de K. Combien y a-t-il de
+graphes (non isomorphes !) 3-réguliers avec 6 nœuds ? Voir aussi une
+[table de résultats][p94-table] et un [applet Java][p94-java] qui peuvent
+représenter des graphes géométriquement.
 
 [p94-table]: http://aperiodic.net/phil/scala/s-99/p94.txt
 [p94-java]: https://prof.ti.bfh.ch/hew1/informatik3/prolog/p-99/GraphLayout/index.html
@@ -1557,17 +1566,18 @@ nombres soient écrits en français. Par exemple, 175 doit être écrit « cent
 soixante-quinze. » Écrivez une fonction `fullWords(num: Int)` pour afficher les
 entiers (positifs) en français.
 
-### [à traduire] P96 (moyen)
+### P96 (moyen)
 
-In a certain programming language (Ada) identifiers are defined by the syntax
-diagram (railroad chart) below. Transform the syntax diagram into a system
-of syntax diagrams which do not contain loops; i.e. which are purely recursive.
-Using these modified diagrams, write a function `isIdentifier` that can check
-whether or not a given string is a legal identifier.
+Dans un certain langage de programmation (Ada), les identifiants sont définis
+par le diagramme de syntaxe ci-dessous. Transformez le diagramme en un système
+de diagrammes de syntaxe qui ne contiennent pas de boucle, donc qui sont
+purement récursifs. Utilisez ces diagrammes modifiés pour écrire une fonction
+`isIdentifier` qui peut vérifier si une chaîne de caractères donnée est un
+identifiant valide ou non.
 
 ![](imgs/P96.png)
 
-### [à traduire] P97 (moyen)
+### P97 (moyen)
 
 Les puzzles de Sudoku ressemblent à la figure suivante :
 
@@ -1591,28 +1601,31 @@ Les puzzles de Sudoku ressemblent à la figure suivante :
             |         |                      |         |
     2  4  . | .  .  1 | 5  .  .      2  4  6 | 3  9  1 | 5  7  8
 
-Every spot in the puzzle belongs to a (horizontal) row and a (vertical) column,
-as well as to one single 3Ã—3 square (which we call "square" for short). At the
-beginning, some of the spots carry a single-digit number between 1 and 9. The
-problem is to fill the missing spots with digits in such a way that every
-number between 1 and 9 appears exactly once in each row, in each column, and in
-each square.
+Chaque position dans le puzzle appartient (horizontalement) à une ligne et
+(verticalement) à une colonne, ainsi qu’à un seul carré 3×3 (que nous
+appellerons « carré » pour faire court). Certaines de ces positions contiennent
+un chiffre de 1 à 9. Le problème consiste à remplir les positions vides avec
+des chiffres de façon à ce que chaque chiffre n’apparaît qu’une seule fois dans
+chaque ligne, colonne et carré.
 
-### [à traduire] P98 (difficile)
+### P98 (difficile)
 
-Around 1994, a certain kind of puzzles was very popular in England. The "Sunday
-Telegraph" newspaper wrote:
+Vers 1994, une famille de puzzles était très populaire en Angleterre. Le
+journal « Sunday Telegraph » écrivait :
 
-> Nonograms are puzzles from Japan and are currently published each week only
-> in The Sunday Telegraph. Simply use your logic and skill to complete the grid
-> and reveal a picture or diagram.
+> Les nonogrammes sont des puzzles qui nous viennent du Japon et son
+> actuellement publiés chaque semaine dans le Sunday Tehegraph uniquement.
+> Utilisez votre logique et votre talent pour compléter la grille et révéler
+> l’image ou le diagramme.
 
-As a programmer, you are in a better situation: you can have your computer do
-the work! Just write a little program ;-).
-The puzzle goes like this: Essentially, each row and column of a rectangular
-bitmap is annotated with the respective lengths of its distinct strings of
-occupied cells. The person who solves the puzzle must complete the bitmap given
-only these lengths.
+En temps que programmeur, vous êtes dans une meilleure situation : vous avez un
+ordinateur pour faire le travail à votre place ! Il faut juste écrire un petit
+programme ;-)
+
+Le puzzle fonctionne de la façon suivante : chaque ligne et colonne d’une
+grille rectangulaire est annotée avec les longueurs respectives des suites
+distinctes de cellules occupées. La personne qui résout le puzzle doit
+compléter la grille en utilisant uniquement ces longueurs.
 
           Problème:                   Solution:
 
@@ -1628,25 +1641,25 @@ only these lengths.
            1 3 1 7 5 3 4 3             1 3 1 7 5 3 4 3
            2 1 5 1                     2 1 5 1
 
-For the example above, the problem can be stated as the two lists
-`[[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]` and
-`[[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]` which give the "solid" lengths of
-the rows and columns, top-to-bottom and left-to-right, respectively. Published
-puzzles are larger than this example, e.g. 25Ã—20, and apparently always have
-unique solutions.
+Pour l’exemple ci-dessus, le problème peut être défini par deux listes
+`[[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]` et
+`[[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]` qui donnent les longueurs
+« solides » des lignes et colonnes, respectivement haut-bas et gauche-droite.
+Les puzzles publiés sont plus grands que cet exemple, par exemple 25×20, et
+n’ont apparemment que des solutions uniques.
 
 ### [à traduire] P99 (difficile)
 
-Given an empty (or almost empty) framework of a crossword puzzle and a set of
-words. The problem is to place the words into the framework.
-The particular crossword puzzle is specified in a text file which first lists
-the words (one word per line) in an arbitrary order. Then, after an empty line,
-the crossword framework is defined. In this framework specification, an empty
-character location is represented by a dot (`.`). In order to make the solution
-easier, character locations can also contain predefined character values. The
-puzzle below is defined in the file [p99a.dat][p99d1], other examples are
-[p99b.dat][p99d2] and [p99d.dat][p99d3]. There is also an example of a puzzle
-([p99c.dat][p99d4]) which does not have a solution.
+Soit une zone vide (ou presque vide) d’un jeu de mots-croisés et un ensemble de
+mots. Le problème consite à placer les mots dans la zone.
+Le jeu de mots-croisés est spécifié dans un fichier texte qui commence par
+lister les mots (un par ligne) dans un ordre arbitraire. Ensuite, après une
+ligne vide, le placement des cases de la zone est défini. Une case vide est
+représentée par un point (`.`). Pour faciliter la solution, certaines cases
+peuvent aussi contenir des caractères prédéfinis. Le jeu ci-dessous est défini
+dans le fichier [p99a.dat][p99d1], d’autres exemples sont dans
+[p99b.dat][p99d2] et [p99d.dat][p99d3]. Il y a aussi un exemple dans
+([p99c.dat][p99d4]) qui n’a pas de solution.
 
 [p99d1]: http://aperiodic.net/phil/scala/s-99/p99a.dat
 [p99d2]: http://aperiodic.net/phil/scala/s-99/p99b.dat
@@ -1655,15 +1668,15 @@ puzzle below is defined in the file [p99a.dat][p99d1], other examples are
 
 ![](imgs/p99.png)
 
-Words are strings of at least two characters. A horizontal or vertical sequence
-of character places in the crossword puzzle framework is called a site. Our
-problem is to find a compatible way of placing words onto sites.
+Les mots sont des chaînes d’au moins deux caractères. Une séquence horizontale
+ou verticale de caractères dans la zone du jeu est appelée un « site. » Notre
+problème est de trouver une façon compatible de placer les mots sur les sites.
 
-Hints:
+Astuces :
 
-1. The problem is not easy. You will need some time to thoroughly understand
-   it. So, don't give up too early! And remember that the objective is a clean
-   solution, not just a quick-and-dirty hack!
-2. For efficiency reasons it is important, at least for larger puzzles, to sort
-   the words and the sites in a particular order. For this part of the problem,
-   the solution of P28 may be very helpful.
+1. Le problème n’est pas facile. Vous aurez besoin de temps pour le comprendre
+   complètement, donc n’abandonnez pas trop vite ! Et rappelez-vous que
+   l’objectif est une solution propre, pas un truc moche et écrit rapidement !
+2. Il est important, pour des raisons d’efficacité, au moins pour les grands
+   puzzles, de trier les mots et les sites dans un ordre particulier. Pour
+   cette partie du problème la solution du problème P29 peut être très utile.
