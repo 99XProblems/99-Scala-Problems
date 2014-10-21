@@ -49,7 +49,7 @@ Lancez `sbt` dans le répertoire racine du projet :
 
     $ sbt
 
-Ensuitez tapez `test` pour tester. Vous pouvez aussi utiliser `sbt test`
+Tapez ensuite `test` pour tester. Vous pouvez aussi utiliser `sbt test`
 directement depuis la ligne de commande mais ça prendra plus de temps car il
 faut que la JVM soit démarrée à chaque fois.
 
@@ -311,7 +311,7 @@ Générez les combinaisons de K éléments distincts choisis parmi les N éléme
 d’une liste. En combien de façons différentes peut-on choisir un comité de 3
 personnes dans un groupe de 12 ? Il y a C(12, 3) = 220 possibilités (C(N, K)
 représente le coefficient binomial). Pour les mathématiciens, ce résultat peut
-être très bien. Mais nous voulous vraiment générer toutes les possibilités.
+être très bien. Mais nous voulons vraiment générer toutes les possibilités.
 
 Exemple :
 
@@ -390,7 +390,7 @@ Exemple :
 ### P32 (moyen)
 
 Déterminez le plus grand diviseur commun (PGCD) de deux entiers positifs
-non-nuls.
+non nuls.
 Utilisez l’algorithme d’Euclide.
 
 Exemple :
@@ -410,7 +410,7 @@ Exemple :
 
 ### P34 (moyen)
 
-Claculez la fonction indicatrice d’Euler phi(m). L’indicatrice d’Euler phi(m)
+Calculez la fonction indicatrice d’Euler phi(m). L’indicatrice d’Euler phi(m)
 est définie comme le nombre d’entiers positifs r (1 ≤ r ≤ m) qui sont premiers
 avec m.
 
@@ -432,7 +432,7 @@ Exemple :
 ### P36 (moyen)
 
 Ce problème est une variante du problème P35 où au lieu de retourner seulement
-les facteurs, il faut retourner leur nombre d’occurences en plus.
+les facteurs, il faut retourner leur nombre d’occurrences en plus.
 
 Exemple :
 
@@ -586,7 +586,7 @@ Exemple :
     scala> gray(3)
     res0 List[String] = List(000, 001, 011, 010, 110, 111, 101, 100)
 
-Testez si utiliser la mémoization permet de rendre la fonction plus rapide.
+Testez si utiliser la mémoisation permet de rendre la fonction plus rapide.
 
 ### P50 (difficile)
 
@@ -662,24 +662,24 @@ Exemple :
     scala> Tree.cBalanced(4, "x")
     res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x T(x . .) .)), ...
 
--------------------------------------------------------------------------------
-TODO: traduire la suite
-
 ### P53 (moyen)
 
-Let us call a binary tree symmetric if you can draw a vertical line through the
-root node and then the right subtree is the mirror image of the left subtree.
-Add an `isSymmetric` method to the `Tree` class of P52 to check whether a given
-binary tree is symmetric.
+Un arbre binaire est dit symétrique si vous pouvez tracer une ligne vertical au
+milieu du nœud racine avec le sous-arbre gauche comme un miroir du sous-arbre
+droit.. Ajoutez une méthode `isSymmetric` à la classe `Tree` du problème P51
+pour vérifier si un arbre binaire donné est symétrique.
 
-Hint: Write an `isMirrorOf` method first to check whether one tree is the
-mirror image of another. We are only interested in the structure, not in the
-contents of the nodes.
+Astuce : Écrivez d’abord une méthode `isMirrorOf` pour vérifier si un arbre est
+l’image miroir d’un autre. Nous sommes uniquement intéressés par la structure,
+pas le contenu des nœuds.
 
 Exemple :
 
     scala> Node('a', Node('b'), Node('c')).isSymmetric
     res0: Boolean = true
+
+-------------------------------------------------------------------------------
+TODO: traduire la suite
 
 ### P54 (moyen)
 
