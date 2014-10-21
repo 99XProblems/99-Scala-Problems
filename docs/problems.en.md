@@ -1334,7 +1334,7 @@ Example:
 
 Write a method `spanningTrees` to construct all spanning trees of a given
 graph. With this method, find out how many spanning trees there are for the
-graph depicted to the right. The data of this example graph can be found below.
+graph depicted below. The data of this example graph can be found below.
 When you have a correct solution for the `spanningTrees` method, use it to
 define two other useful methods: `isTree` and `isConnected`. Both are
 five-minute tasks!
@@ -1357,7 +1357,7 @@ Example:
 
 Write a method `minimalSpanningTree` to construct the minimal spanning tree of
 a given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
-solution of P83 does the trick. The data of the example graph to the right can
+solution of P82 does the trick. The data of the example graph to the right can
 be found below.
 
 ![](imgs/p83.png)
@@ -1365,10 +1365,10 @@ be found below.
 Graph:
 
     Graph.termLabel(
-    List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
-        List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
-                ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
-                ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
+        List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
+            List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
+                    ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
+                    ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
 
 Example:
 
@@ -1469,14 +1469,14 @@ the [generate-and-test paradigm][gentest].
 
 ### P91 (medium)
 
-Another famous problem is this one: How can a knight jump on an `NÃ-N`
+Another famous problem is this one: How can a knight jump on an `N×N`
 chessboard in such a way that it visits every square exactly once?
 
 Hints: Represent the squares by pairs of their coordinates of the form `(X,
 Y)`, where both `X` and `Y` are integers between `1` and `N`. (Alternately,
 define a `Point` class for the same purpose.) Write a function
 `jumps(N, (X, Y))` to list the squares that a knight can jump to from `(X, Y)`
-on a `NÃ-N` chessboard. And finally, represent the solution of our problem as a
+on a `N×N` chessboard. And finally, represent the solution of our problem as a
 list of knight positions (the knight's tour).
 
 It might be nice to find more than one tour, but a computer will take a long
@@ -1564,7 +1564,7 @@ Sudoku puzzles go like this:
     2  4  . | .  .  1 | 5  .  .      2  4  6 | 3  9  1 | 5  7  8
 
 Every spot in the puzzle belongs to a (horizontal) row and a (vertical) column,
-as well as to one single 3Ã—3 square (which we call "square" for short). At the
+as well as to one single 3×3 square (which we call "square" for short). At the
 beginning, some of the spots carry a single-digit number between 1 and 9. The
 problem is to fill the missing spots with digits in such a way that every
 number between 1 and 9 appears exactly once in each row, in each column, and in
@@ -1604,7 +1604,7 @@ For the example above, the problem can be stated as the two lists
 `[[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]` and
 `[[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]` which give the "solid" lengths of
 the rows and columns, top-to-bottom and left-to-right, respectively. Published
-puzzles are larger than this example, e.g. 25Ã—20, and apparently always have
+puzzles are larger than this example, e.g. 25×20, and apparently always have
 unique solutions.
 
 ### P99 (hard)
@@ -1638,4 +1638,4 @@ Hints:
    solution, not just a quick-and-dirty hack!
 2. For efficiency reasons it is important, at least for larger puzzles, to sort
    the words and the sites in a particular order. For this part of the problem,
-   the solution of P28 may be very helpful.
+   the solution of P29 may be very helpful.
