@@ -654,7 +654,7 @@ Example:
 
 Let us call a binary tree symmetric if you can draw a vertical line through the
 root node and then the right subtree is the mirror image of the left subtree.
-Add an `isSymmetric` method to the `Tree` class of P52 to check whether a given
+Add an `isSymmetric` method to the `Tree` class of P51 to check whether a given
 binary tree is symmetric.
 
 Hint: Write an `isMirrorOf` method first to check whether one tree is the
