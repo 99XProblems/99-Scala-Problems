@@ -91,6 +91,9 @@ Tapez ensuite `test` pour tester. Vous pouvez aussi utiliser `sbt test`
 directement depuis la ligne de commande mais ça prendra plus de temps car il
 faut que la JVM soit démarrée à chaque fois.
 
+Utilisez `test-only org.p99.scala.P00Spec` pour ne tester que le problème P00
+(remplacez `P00` par `P01` pour le problème P01, etc).
+
 ## Problèmes
 
 ### P01 (facile)

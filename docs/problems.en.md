@@ -90,6 +90,8 @@ Start `sbt` in the project directory:
 Then type `test` to test. You can also use `sbt test` from the command-line but
 that’s longer since the JVM has to be started everytime.
 
+Use `test-only org.p99.scala.P00Spec` to test only the problem `00`.
+
 ### Problems
 
 ### P01 (easy)
