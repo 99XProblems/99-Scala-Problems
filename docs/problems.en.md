@@ -1539,7 +1539,7 @@ of syntax diagrams which do not contain loops; i.e. which are purely recursive.
 Using these modified diagrams, write a function `isIdentifier` that can check
 whether or not a given string is a legal identifier.
 
-![](imgs/P96.png)
+![](imgs/p96.png)
 
 ### P97 (medium)
 

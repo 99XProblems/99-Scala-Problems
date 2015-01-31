@@ -1578,7 +1578,7 @@ purement récursifs. Utilisez ces diagrammes modifiés pour écrire une fonction
 `isIdentifier` qui peut vérifier si une chaîne de caractères donnée est un
 identifiant valide ou non.
 
-![](imgs/P96.png)
+![](imgs/p96.png)
 
 ### P97 (moyen)
 
