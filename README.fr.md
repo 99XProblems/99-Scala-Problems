@@ -30,3 +30,7 @@ Ce projet représente 99 problèmes en Scala de divers niveaux de difficulté.
     $ unzip master.zip
     $ mv 99-Scala-Problems-master 99-Scala-Problems
     $ cd 99-Scala-Problems
+
+## Voir aussi
+
+* [99 Clojure Problems](https://github.com/99XProblems/99-Clojure-Problems)

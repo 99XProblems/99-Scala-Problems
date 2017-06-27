@@ -34,3 +34,7 @@ Translations:
     $ unzip master.zip
     $ mv 99-Scala-Problems-master 99-Scala-Problems
     $ cd 99-Scala-Problems
+
+## See Also
+
+* [99 Clojure Problems](https://github.com/99XProblems/99-Clojure-Problems)
